@@ -2,22 +2,30 @@ cmake_minimum_required(VERSION 3.16)
 
 project(course_part1 VERSION 0.1 LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 qt_standard_project_setup(REQUIRES 6.10)
 
 qt_add_executable(appcourse_part1
     main.cpp
-)
-
-qt_add_qml_module(appcourse_part1
-    URI course_part1
-    QML_FILES
-        Main.qml
-        SOURCES
-        SOURCES domain/writing.cpp
+    domain/writing.cpp
+    domain/writing.hpp
+    application/operation_result.hpp
+    application/writings_repository.cpp
+    application/writings_repository.hpp
+    application/writing_file_storage.hpp
+    application/library_catalog_service.cpp
+    application/library_catalog_service.hpp
+    infrastructure/in_memory_writings_repository.cpp
+    infrastructure/in_memory_writings_repository.hpp
+    infrastructure/csv_writing_file_storage.cpp
+    infrastructure/csv_writing_file_storage.hpp
+    presentation/main_window.cpp
+    presentation/main_window.hpp
+    presentation/main_window.ui
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -32,8 +40,11 @@ set_target_properties(appcourse_part1 PROPERTIES
 )
 
 target_link_libraries(appcourse_part1
-    PRIVATE Qt6::Quick
+    PRIVATE
+        Qt6::Widgets
 )
+
+target_include_directories(appcourse_part1 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 install(TARGETS appcourse_part1
     BUNDLE DESTINATION .
