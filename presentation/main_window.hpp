@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 
-#include "application/library_catalog_service.hpp"
+#include "application/authors_service.hpp"
+#include "application/writings_service.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,29 +19,53 @@ class MainWindow final : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(Application::LibraryCatalogService &service, QWidget *parent = nullptr);
+    explicit MainWindow(
+        Application::AuthorsService &authorsService,
+        Application::WritingsService &writingsService,
+        QWidget *parent = nullptr);
     ~MainWindow() override;
 
 private slots:
-    void onAddClicked();
-    void onUpdateClicked();
-    void onDeleteClicked();
-    void onLoadClicked();
-    void onSaveClicked();
-    void onClearClicked();
-    void onTableSelectionChanged();
+    void onLoadAuthorsClicked();
+    void onSaveAuthorsClicked();
+    void onAddAuthorClicked();
+    void onUpdateAuthorClicked();
+    void onDeleteAuthorClicked();
+    void onClearAuthorClicked();
+
+    void onLoadWritingsClicked();
+    void onSaveWritingsClicked();
+    void onAddWritingClicked();
+    void onUpdateWritingClicked();
+    void onDeleteWritingClicked();
+    void onClearWritingClicked();
+
+    void onAuthorTableSelectionChanged();
+    void onWritingTableSelectionChanged();
 
 private:
-    void refreshTable();
-    void clearForm();
-    void fillForm(const Domain::Writing &writing);
+    void refreshAuthorsTable();
+    void refreshWritingsTable();
+    void refreshAuthorCombo(const QString &preferredAuthorId = QString());
+
+    void clearAuthorForm();
+    void clearWritingForm();
+
+    void fillAuthorForm(const Domain::Author &author);
+    void fillWritingForm(const Domain::Writing &writing);
+
+    bool buildAuthorFromForm(Domain::Author &author);
     bool buildWritingFromForm(Domain::Writing &writing);
+
+    QString authorNameById(const QString &authorId) const;
     void showStatus(const QString &message);
     void updateActionButtons();
 
-    Application::LibraryCatalogService &m_service;
+    Application::AuthorsService &m_authorsService;
+    Application::WritingsService &m_writingsService;
     Ui::MainWindow *m_ui;
-    QString m_selectedTitle;
+    QString m_selectedAuthorId;
+    QString m_selectedWritingId;
 };
 
 } // namespace Presentation

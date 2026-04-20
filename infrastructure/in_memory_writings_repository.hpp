@@ -12,14 +12,16 @@ class InMemoryWritingsRepository final : public Application::WritingsRepository
 {
 public:
     QList<Domain::Writing> findAll() const override;
+    bool hasForAuthor(const QString &authorId) const override;
+
     Application::OperationResult add(const Domain::Writing &writing) override;
     Application::OperationResult update(
-        const QString &currentTitle, const Domain::Writing &writing) override;
-    Application::OperationResult remove(const QString &title) override;
+        const QString &writingId, const Domain::Writing &writing) override;
+    Application::OperationResult remove(const QString &writingId) override;
     Application::OperationResult replaceAll(const QList<Domain::Writing> &writings) override;
 
 private:
-    static QString keyForTitle(const QString &title);
+    static QString keyForId(const QString &id);
 
     QMap<QString, Domain::Writing> m_writings;
 };

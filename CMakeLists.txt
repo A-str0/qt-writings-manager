@@ -11,18 +11,27 @@ qt_standard_project_setup(REQUIRES 6.10)
 
 qt_add_executable(appcourse_part1
     main.cpp
+    domain/author.cpp
+    domain/author.hpp
     domain/writing.cpp
     domain/writing.hpp
+    application/authors_file_storage.hpp
+    application/authors_repository.hpp
+    application/authors_service.cpp
+    application/authors_service.hpp
     application/operation_result.hpp
-    application/writings_repository.cpp
     application/writings_repository.hpp
-    application/writing_file_storage.hpp
-    application/library_catalog_service.cpp
-    application/library_catalog_service.hpp
+    application/writings_file_storage.hpp
+    application/writings_service.cpp
+    application/writings_service.hpp
+    infrastructure/csv_authors_file_storage.cpp
+    infrastructure/csv_authors_file_storage.hpp
+    infrastructure/csv_writings_file_storage.cpp
+    infrastructure/csv_writings_file_storage.hpp
+    infrastructure/in_memory_authors_repository.cpp
+    infrastructure/in_memory_authors_repository.hpp
     infrastructure/in_memory_writings_repository.cpp
     infrastructure/in_memory_writings_repository.hpp
-    infrastructure/csv_writing_file_storage.cpp
-    infrastructure/csv_writing_file_storage.hpp
     presentation/main_window.cpp
     presentation/main_window.hpp
     presentation/main_window.ui

@@ -1,10 +1,12 @@
 #include "infrastructure/in_memory_writings_repository.hpp"
 
+#include <utility>
+
 namespace Infrastructure {
 
-QString InMemoryWritingsRepository::keyForTitle(const QString &title)
+QString InMemoryWritingsRepository::keyForId(const QString &id)
 {
-    return title.trimmed().toCaseFolded();
+    return id.trimmed();
 }
 
 QList<Domain::Writing> InMemoryWritingsRepository::findAll() const
@@ -12,61 +14,68 @@ QList<Domain::Writing> InMemoryWritingsRepository::findAll() const
     return m_writings.values();
 }
 
-Application::OperationResult InMemoryWritingsRepository::add(const Domain::Writing &writing)
+bool InMemoryWritingsRepository::hasForAuthor(const QString &authorId) const
 {
-    const QString key = keyForTitle(writing.title());
+    const QString authorKey = keyForId(authorId);
 
-    if (m_writings.contains(key)) {
-        return Application::OperationResult::failure(
-            QStringLiteral("Произведение с таким названием уже есть в каталоге."));
+    for (const Domain::Writing &writing : m_writings) {
+        if (keyForId(writing.authorId()) == authorKey) {
+            return true;
+        }
     }
 
-    m_writings.insert(key, writing);
-    return Application::OperationResult::success(QStringLiteral("Запись добавлена в каталог."));
+    return false;
+}
+
+Application::OperationResult InMemoryWritingsRepository::add(const Domain::Writing &writing)
+{
+    const QString writingKey = keyForId(writing.id());
+
+    if (writingKey.isEmpty()) {
+        return Application::OperationResult::failure(
+            QStringLiteral("Не удалось сохранить произведение без идентификатора."));
+    }
+
+    if (m_writings.contains(writingKey)) {
+        return Application::OperationResult::failure(
+            QStringLiteral("Произведение с таким идентификатором уже существует."));
+    }
+
+    m_writings.insert(writingKey, writing);
+    return Application::OperationResult::success(QStringLiteral("Произведение добавлено."));
 }
 
 Application::OperationResult InMemoryWritingsRepository::update(
-    const QString &currentTitle, const Domain::Writing &writing)
+    const QString &writingId, const Domain::Writing &writing)
 {
-    const QString currentKey = keyForTitle(currentTitle);
+    const QString writingKey = keyForId(writingId);
 
-    if (!m_writings.contains(currentKey)) {
+    if (!m_writings.contains(writingKey)) {
         return Application::OperationResult::failure(
-            QStringLiteral("Не удалось найти запись для редактирования."));
+            QStringLiteral("Не удалось найти произведение для редактирования."));
     }
 
-    const QString newKey = keyForTitle(writing.title());
-
-    if (newKey != currentKey && m_writings.contains(newKey)) {
-        return Application::OperationResult::failure(
-            QStringLiteral("Нельзя переименовать запись: такое произведение уже существует."));
-    }
-
-    if (newKey != currentKey) {
-        m_writings.remove(currentKey);
-    }
-
-    m_writings.insert(newKey, writing);
-    return Application::OperationResult::success(QStringLiteral("Запись обновлена."));
+    m_writings.insert(writingKey, writing);
+    return Application::OperationResult::success(QStringLiteral("Произведение обновлено."));
 }
 
-Application::OperationResult InMemoryWritingsRepository::remove(const QString &title)
+Application::OperationResult InMemoryWritingsRepository::remove(const QString &writingId)
 {
-    const QString key = keyForTitle(title);
+    const QString writingKey = keyForId(writingId);
 
-    if (!m_writings.contains(key)) {
+    if (!m_writings.contains(writingKey)) {
         return Application::OperationResult::failure(
-            QStringLiteral("Выбранная запись уже отсутствует в каталоге."));
+            QStringLiteral("Выбранное произведение уже отсутствует в каталоге."));
     }
 
-    m_writings.remove(key);
-    return Application::OperationResult::success(QStringLiteral("Запись удалена."));
+    m_writings.remove(writingKey);
+    return Application::OperationResult::success(QStringLiteral("Произведение удалено."));
 }
 
 Application::OperationResult InMemoryWritingsRepository::replaceAll(
     const QList<Domain::Writing> &writings)
 {
-    QMap<QString, Domain::Writing> nextState;
+    QMap<QString, Domain::Writing> nextWritings;
 
     for (const Domain::Writing &writing : writings) {
         const QString error = writing.validationError();
@@ -74,17 +83,23 @@ Application::OperationResult InMemoryWritingsRepository::replaceAll(
             return Application::OperationResult::failure(error);
         }
 
-        const QString key = keyForTitle(writing.title());
+        const QString writingKey = keyForId(writing.id());
 
-        if (nextState.contains(key)) {
+        if (writingKey.isEmpty()) {
             return Application::OperationResult::failure(
-                QStringLiteral("В CSV найдено несколько произведений с одинаковым названием."));
+                QStringLiteral("В CSV найдено произведение без идентификатора."));
         }
 
-        nextState.insert(key, writing);
+        if (nextWritings.contains(writingKey)) {
+            return Application::OperationResult::failure(
+                QStringLiteral(
+                    "В CSV найдено несколько произведений с одинаковым идентификатором."));
+        }
+
+        nextWritings.insert(writingKey, writing);
     }
 
-    m_writings = std::move(nextState);
+    m_writings = std::move(nextWritings);
     return Application::OperationResult::success();
 }
 

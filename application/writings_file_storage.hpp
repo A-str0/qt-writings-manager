@@ -1,5 +1,5 @@
-#ifndef APPLICATION_WRITING_FILE_STORAGE_HPP
-#define APPLICATION_WRITING_FILE_STORAGE_HPP
+#ifndef APPLICATION_WRITINGS_FILE_STORAGE_HPP
+#define APPLICATION_WRITINGS_FILE_STORAGE_HPP
 
 #include <QList>
 #include <QString>
@@ -8,10 +8,10 @@
 
 namespace Application {
 
-class WritingFileStorage
+class WritingsFileStorage
 {
 public:
-    virtual ~WritingFileStorage() = default;
+    virtual ~WritingsFileStorage() = default;
 
     virtual OperationResult save(
         const QString &filePath, const QList<Domain::Writing> &writings) const = 0;
@@ -20,4 +20,4 @@ public:
 
 } // namespace Application
 
-#endif // APPLICATION_WRITING_FILE_STORAGE_HPP
+#endif // APPLICATION_WRITINGS_FILE_STORAGE_HPP

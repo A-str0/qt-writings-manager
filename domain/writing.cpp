@@ -16,13 +16,24 @@ QString normalizeLineBreaks(QString value)
 namespace Domain {
 
 Writing::Writing(
-    QString title, QString author, QString genre, int publicationYear, QString description)
-    : m_title(std::move(title))
-    , m_author(std::move(author))
+    QString id,
+    QString title,
+    QString authorId,
+    QString genre,
+    int publicationYear,
+    QString description)
+    : m_id(std::move(id))
+    , m_title(std::move(title))
+    , m_authorId(std::move(authorId))
     , m_genre(std::move(genre))
     , m_publicationYear(publicationYear)
     , m_description(std::move(description))
 {
+}
+
+const QString &Writing::id() const
+{
+    return m_id;
 }
 
 const QString &Writing::title() const
@@ -30,9 +41,9 @@ const QString &Writing::title() const
     return m_title;
 }
 
-const QString &Writing::author() const
+const QString &Writing::authorId() const
 {
-    return m_author;
+    return m_authorId;
 }
 
 const QString &Writing::genre() const
@@ -53,11 +64,17 @@ const QString &Writing::description() const
 Writing Writing::normalized() const
 {
     return Writing(
+        m_id.trimmed(),
         m_title.trimmed(),
-        m_author.trimmed(),
+        m_authorId.trimmed(),
         m_genre.trimmed(),
         m_publicationYear,
         normalizeLineBreaks(m_description).trimmed());
+}
+
+Writing Writing::withId(QString id) const
+{
+    return Writing(std::move(id), m_title, m_authorId, m_genre, m_publicationYear, m_description);
 }
 
 QString Writing::validationError() const
@@ -66,8 +83,8 @@ QString Writing::validationError() const
         return QStringLiteral("Название произведения не может быть пустым.");
     }
 
-    if (m_author.trimmed().isEmpty()) {
-        return QStringLiteral("Поле автора обязательно для заполнения.");
+    if (m_authorId.trimmed().isEmpty()) {
+        return QStringLiteral("Для произведения нужно выбрать автора.");
     }
 
     if (m_publicationYear < 0 || m_publicationYear > 2100) {

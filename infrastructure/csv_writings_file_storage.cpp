@@ -1,4 +1,4 @@
-#include "infrastructure/csv_writing_file_storage.hpp"
+#include "infrastructure/csv_writings_file_storage.hpp"
 
 #include <QFile>
 #include <QSaveFile>
@@ -7,6 +7,9 @@
 #include <QTextStream>
 
 namespace {
+
+const QString kWritingsHeader =
+    QStringLiteral("id,title,authorId,genre,publicationYear,description");
 
 QString escapeCsvField(QString value)
 {
@@ -61,31 +64,47 @@ QStringList parseCsvLine(const QString &line, bool &ok)
     return values;
 }
 
+bool parseOptionalInt(const QString &text, int &value)
+{
+    value = 0;
+    const QString trimmed = text.trimmed();
+
+    if (trimmed.isEmpty()) {
+        return true;
+    }
+
+    bool ok = false;
+    value = trimmed.toInt(&ok);
+    return ok;
+}
+
 } // namespace
 
 namespace Infrastructure {
 
-Application::OperationResult CsvWritingFileStorage::save(
+Application::OperationResult CsvWritingsFileStorage::save(
     const QString &filePath, const QList<Domain::Writing> &writings) const
 {
     if (filePath.trimmed().isEmpty()) {
         return Application::OperationResult::failure(
-            QStringLiteral("Не удалось определить путь для сохранения."));
+            QStringLiteral("Не удалось определить путь для сохранения произведений."));
     }
 
     QSaveFile file(filePath);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         return Application::OperationResult::failure(
-            QStringLiteral("Не удалось открыть файл для записи: %1").arg(file.errorString()));
+            QStringLiteral("Не удалось открыть файл произведений для записи: %1")
+                .arg(file.errorString()));
     }
 
     QTextStream stream(&file);
     stream.setEncoding(QStringConverter::Utf8);
-    stream << "title,author,genre,year,description\n";
+    stream << kWritingsHeader << '\n';
 
     for (const Domain::Writing &writing : writings) {
-        stream << escapeCsvField(writing.title()) << ',' << escapeCsvField(writing.author()) << ','
-               << escapeCsvField(writing.genre()) << ','
+        stream << escapeCsvField(writing.id()) << ',' << escapeCsvField(writing.title()) << ','
+               << escapeCsvField(writing.authorId()) << ',' << escapeCsvField(writing.genre())
+               << ','
                << escapeCsvField(writing.publicationYear() == 0
                                      ? QString()
                                      : QString::number(writing.publicationYear()))
@@ -94,24 +113,25 @@ Application::OperationResult CsvWritingFileStorage::save(
 
     if (!file.commit()) {
         return Application::OperationResult::failure(
-            QStringLiteral("Не удалось сохранить CSV-файл."));
+            QStringLiteral("Не удалось сохранить CSV-файл произведений."));
     }
 
     return Application::OperationResult::success(
-        QStringLiteral("Каталог сохранён в CSV (%1 записей).").arg(writings.size()));
+        QStringLiteral("Произведения сохранены в CSV (%1 записей).").arg(writings.size()));
 }
 
-Application::LoadWritingsResult CsvWritingFileStorage::load(const QString &filePath) const
+Application::LoadWritingsResult CsvWritingsFileStorage::load(const QString &filePath) const
 {
     if (filePath.trimmed().isEmpty()) {
         return Application::LoadWritingsResult::failure(
-            QStringLiteral("Не удалось определить путь к файлу."));
+            QStringLiteral("Не удалось определить путь к файлу произведений."));
     }
 
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return Application::LoadWritingsResult::failure(
-            QStringLiteral("Не удалось открыть CSV-файл: %1").arg(file.errorString()));
+            QStringLiteral("Не удалось открыть CSV-файл произведений: %1")
+                .arg(file.errorString()));
     }
 
     QTextStream stream(&file);
@@ -121,10 +141,14 @@ Application::LoadWritingsResult CsvWritingFileStorage::load(const QString &fileP
     int lineNumber = 0;
 
     while (!stream.atEnd()) {
-        QString line = stream.readLine();
+        const QString line = stream.readLine();
         ++lineNumber;
 
-        if (lineNumber == 1 && line.trimmed() == "title,author,genre,year,description") {
+        if (lineNumber == 1) {
+            if (line.trimmed() != kWritingsHeader) {
+                return Application::LoadWritingsResult::failure(
+                    QStringLiteral("Неверный заголовок CSV-файла произведений."));
+            }
             continue;
         }
 
@@ -135,20 +159,14 @@ Application::LoadWritingsResult CsvWritingFileStorage::load(const QString &fileP
         bool ok = false;
         const QStringList columns = parseCsvLine(line, ok);
 
-        if (!ok || columns.size() != 5) {
+        if (!ok || columns.size() != 6) {
             return Application::LoadWritingsResult::failure(
-                QStringLiteral("Не удалось разобрать CSV-строку %1.").arg(lineNumber));
+                QStringLiteral("Не удалось разобрать строку %1 в файле произведений.")
+                    .arg(lineNumber));
         }
 
-        bool yearOk = true;
-        int year = 0;
-        const QString yearText = columns.at(3).trimmed();
-
-        if (!yearText.isEmpty()) {
-            year = yearText.toInt(&yearOk);
-        }
-
-        if (!yearOk) {
+        int publicationYear = 0;
+        if (!parseOptionalInt(columns.at(4), publicationYear)) {
             return Application::LoadWritingsResult::failure(
                 QStringLiteral("Некорректный год издания в строке %1.").arg(lineNumber));
         }
@@ -157,8 +175,9 @@ Application::LoadWritingsResult CsvWritingFileStorage::load(const QString &fileP
             unescapeCsvField(columns.at(0)),
             unescapeCsvField(columns.at(1)),
             unescapeCsvField(columns.at(2)),
-            year,
-            unescapeCsvField(columns.at(4)));
+            unescapeCsvField(columns.at(3)),
+            publicationYear,
+            unescapeCsvField(columns.at(5)));
 
         const QString error = writing.validationError();
         if (!error.isEmpty()) {
@@ -170,7 +189,8 @@ Application::LoadWritingsResult CsvWritingFileStorage::load(const QString &fileP
     }
 
     return Application::LoadWritingsResult::success(
-        writings, QStringLiteral("Каталог загружен из CSV (%1 записей).").arg(writings.size()));
+        writings,
+        QStringLiteral("Произведения загружены из CSV (%1 записей).").arg(writings.size()));
 }
 
 } // namespace Infrastructure
