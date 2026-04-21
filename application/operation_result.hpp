@@ -16,15 +16,8 @@ struct OperationResult
     bool ok = true;
     QString message;
 
-    static OperationResult success(QString message = {})
-    {
-        return {true, std::move(message)};
-    }
-
-    static OperationResult failure(QString message)
-    {
-        return {false, std::move(message)};
-    }
+    static OperationResult success(QString message = {}) { return {true, std::move(message)}; }
+    static OperationResult failure(QString message) { return {false, std::move(message)}; }
 };
 
 struct LoadAuthorsResult
@@ -38,10 +31,7 @@ struct LoadAuthorsResult
         return {true, std::move(message), std::move(authors)};
     }
 
-    static LoadAuthorsResult failure(QString message)
-    {
-        return {false, std::move(message), {}};
-    }
+    static LoadAuthorsResult failure(QString message) { return {false, std::move(message), {}}; }
 };
 
 struct LoadWritingsResult
@@ -55,10 +45,7 @@ struct LoadWritingsResult
         return {true, std::move(message), std::move(writings)};
     }
 
-    static LoadWritingsResult failure(QString message)
-    {
-        return {false, std::move(message), {}};
-    }
+    static LoadWritingsResult failure(QString message) { return {false, std::move(message), {}}; }
 };
 
 } // namespace Application
