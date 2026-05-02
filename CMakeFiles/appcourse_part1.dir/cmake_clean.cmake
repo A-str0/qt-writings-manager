@@ -1,0 +1,37 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/appcourse_part1.dir/link.d"
+  "CMakeFiles/appcourse_part1_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/appcourse_part1_autogen.dir/ParseCache.txt"
+  "appcourse_part1_autogen"
+  "CMakeFiles/appcourse_part1.dir/appcourse_part1_autogen/mocs_compilation.cpp.o"
+  "CMakeFiles/appcourse_part1.dir/appcourse_part1_autogen/mocs_compilation.cpp.o.d"
+  "CMakeFiles/appcourse_part1.dir/application/authors_service.cpp.o"
+  "CMakeFiles/appcourse_part1.dir/application/authors_service.cpp.o.d"
+  "CMakeFiles/appcourse_part1.dir/application/writings_service.cpp.o"
+  "CMakeFiles/appcourse_part1.dir/application/writings_service.cpp.o.d"
+  "CMakeFiles/appcourse_part1.dir/domain/author.cpp.o"
+  "CMakeFiles/appcourse_part1.dir/domain/author.cpp.o.d"
+  "CMakeFiles/appcourse_part1.dir/domain/writing.cpp.o"
+  "CMakeFiles/appcourse_part1.dir/domain/writing.cpp.o.d"
+  "CMakeFiles/appcourse_part1.dir/infrastructure/csv_authors_file_storage.cpp.o"
+  "CMakeFiles/appcourse_part1.dir/infrastructure/csv_authors_file_storage.cpp.o.d"
+  "CMakeFiles/appcourse_part1.dir/infrastructure/csv_writings_file_storage.cpp.o"
+  "CMakeFiles/appcourse_part1.dir/infrastructure/csv_writings_file_storage.cpp.o.d"
+  "CMakeFiles/appcourse_part1.dir/infrastructure/in_memory_authors_repository.cpp.o"
+  "CMakeFiles/appcourse_part1.dir/infrastructure/in_memory_authors_repository.cpp.o.d"
+  "CMakeFiles/appcourse_part1.dir/infrastructure/in_memory_writings_repository.cpp.o"
+  "CMakeFiles/appcourse_part1.dir/infrastructure/in_memory_writings_repository.cpp.o.d"
+  "CMakeFiles/appcourse_part1.dir/main.cpp.o"
+  "CMakeFiles/appcourse_part1.dir/main.cpp.o.d"
+  "CMakeFiles/appcourse_part1.dir/presentation/main_window.cpp.o"
+  "CMakeFiles/appcourse_part1.dir/presentation/main_window.cpp.o.d"
+  "appcourse_part1"
+  "appcourse_part1.pdb"
+  "appcourse_part1_autogen/mocs_compilation.cpp"
+  "appcourse_part1_autogen/timestamp"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/appcourse_part1.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

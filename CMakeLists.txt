@@ -4,6 +4,7 @@ project(course_part1 VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
@@ -32,9 +33,8 @@ qt_add_executable(appcourse_part1
     infrastructure/in_memory_authors_repository.hpp
     infrastructure/in_memory_writings_repository.cpp
     infrastructure/in_memory_writings_repository.hpp
-    presentation/main_window.cpp
-    presentation/main_window.hpp
-    presentation/main_window.ui
+
+    presentation/main_window.hpp presentation/main_window.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

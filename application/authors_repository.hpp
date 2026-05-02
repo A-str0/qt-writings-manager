@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QString>
+#include <QUuid>
 
 #include "application/operation_result.hpp"
 
@@ -14,11 +15,11 @@ public:
     virtual ~AuthorsRepository() = default;
 
     virtual QList<Domain::Author> findAll() const = 0;
-    virtual bool existsById(const QString &authorId) const = 0;
+    virtual bool existsById(const QUuid &authorId) const = 0;
 
     virtual OperationResult add(const Domain::Author &author) = 0;
-    virtual OperationResult update(const QString &authorId, const Domain::Author &author) = 0;
-    virtual OperationResult remove(const QString &authorId) = 0;
+    virtual OperationResult update(const QUuid &authorId, const Domain::Author &author) = 0;
+    virtual OperationResult remove(const QUuid &authorId) = 0;
     virtual OperationResult replaceAll(const QList<Domain::Author> &authors) = 0;
 };
 

@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_appcourse_part1_FILE /home/magesty_/Projects/course_part1/appcourse_part1)
+set(__QT_DEPLOY_TARGET_appcourse_part1_TYPE EXECUTABLE)

@@ -1,82 +1,21 @@
 #include "infrastructure/csv_writings_file_storage.hpp"
+#include "infrastructure/csv_file_storage_utils.hpp"
 
 #include <QFile>
 #include <QSaveFile>
 #include <QStringConverter>
-#include <QStringList>
 #include <QTextStream>
 
 namespace {
 
-const QString kWritingsHeader =
-    QStringLiteral("id,title,authorId,genre,publicationYear,description");
+const QString kWritingsHeader = QStringLiteral("id,title,authorId,description");
+namespace Csv = Infrastructure::CsvFileStorageDetail;
 
-QString escapeCsvField(QString value)
-{
-    value.replace("\r\n", "\n");
-    value.replace('\r', '\n');
-    value.replace('\n', "\\n");
-    value.replace('"', "\"\"");
-    return '"' + value + '"';
-}
-
-QString unescapeCsvField(QString value)
-{
-    value.replace("\\n", "\n");
-    return value;
-}
-
-QStringList parseCsvLine(const QString &line, bool &ok)
-{
-    QStringList values;
-    QString current;
-    bool inQuotes = false;
-
-    for (int index = 0; index < line.size(); ++index) {
-        const QChar character = line.at(index);
-
-        if (inQuotes) {
-            if (character == '"') {
-                if (index + 1 < line.size() && line.at(index + 1) == '"') {
-                    current += '"';
-                    ++index;
-                } else {
-                    inQuotes = false;
-                }
-            } else {
-                current += character;
-            }
-        } else if (character == '"') {
-            inQuotes = true;
-        } else if (character == ',') {
-            values.append(current);
-            current.clear();
-        } else {
-            current += character;
-        }
-    }
-
-    ok = !inQuotes;
-    if (ok) {
-        values.append(current);
-    }
-
-    return values;
-}
-
-bool parseOptionalInt(const QString &text, int &value)
-{
-    value = 0;
-    const QString trimmed = text.trimmed();
-
-    if (trimmed.isEmpty()) {
-        return true;
-    }
-
-    bool ok = false;
-    value = trimmed.toInt(&ok);
-    return ok;
-}
+constexpr qsizetype kWritingColumnCount = 4;
+constexpr int kWritingIdColumn = 0;
+constexpr int kWritingTitleColumn = 1;
+constexpr int kWritingAuthorIdColumn = 2;
+constexpr int kWritingDescriptionColumn = 3;
 
 } // namespace
 
@@ -102,13 +41,12 @@ Application::OperationResult CsvWritingsFileStorage::save(
     stream << kWritingsHeader << '\n';
 
     for (const Domain::Writing &writing : writings) {
-        stream << escapeCsvField(writing.id()) << ',' << escapeCsvField(writing.title()) << ','
-               << escapeCsvField(writing.authorId()) << ',' << escapeCsvField(writing.genre())
-               << ','
-               << escapeCsvField(writing.publicationYear() == 0
-                                     ? QString()
-                                     : QString::number(writing.publicationYear()))
-               << ',' << escapeCsvField(writing.description()) << '\n';
+        stream << Csv::joinLine(QStringList{
+                      Csv::encodeField(Csv::serializeUuid(writing.id)),
+                      Csv::encodeField(writing.title),
+                      Csv::encodeField(Csv::serializeUuid(writing.authorId)),
+                      Csv::encodeField(writing.description)})
+               << '\n';
     }
 
     if (!file.commit()) {
@@ -137,55 +75,56 @@ Application::LoadWritingsResult CsvWritingsFileStorage::load(const QString &file
     QTextStream stream(&file);
     stream.setEncoding(QStringConverter::Utf8);
 
+    if (stream.readLine() != kWritingsHeader) {
+        return Application::LoadWritingsResult::failure(
+            QStringLiteral("Неверный заголовок CSV-файла произведений."));
+    }
+
     QList<Domain::Writing> writings;
-    int lineNumber = 0;
+    int lineNumber = 1;
 
     while (!stream.atEnd()) {
         const QString line = stream.readLine();
         ++lineNumber;
 
-        if (lineNumber == 1) {
-            if (line.trimmed() != kWritingsHeader) {
-                return Application::LoadWritingsResult::failure(
-                    QStringLiteral("Неверный заголовок CSV-файла произведений."));
-            }
+        if (line.isEmpty()) {
             continue;
         }
 
-        if (line.trimmed().isEmpty()) {
-            continue;
-        }
-
-        bool ok = false;
-        const QStringList columns = parseCsvLine(line, ok);
-
-        if (!ok || columns.size() != 6) {
+        const QStringList columns = Csv::splitLine(line);
+        if (columns.size() != kWritingColumnCount) {
             return Application::LoadWritingsResult::failure(
                 QStringLiteral("Не удалось разобрать строку %1 в файле произведений.")
                     .arg(lineNumber));
         }
 
-        int publicationYear = 0;
-        if (!parseOptionalInt(columns.at(4), publicationYear)) {
+        const QUuid writingId = QUuid::fromString(Csv::decodeField(columns.at(kWritingIdColumn)));
+        if (writingId.isNull()) {
             return Application::LoadWritingsResult::failure(
-                QStringLiteral("Некорректный год издания в строке %1.").arg(lineNumber));
+                QStringLiteral("Некорректный идентификатор произведения в строке %1.")
+                    .arg(lineNumber));
+        }
+
+        const QUuid authorId =
+            QUuid::fromString(Csv::decodeField(columns.at(kWritingAuthorIdColumn)));
+        if (authorId.isNull()) {
+            return Application::LoadWritingsResult::failure(
+                QStringLiteral("Некорректный идентификатор автора в строке %1.")
+                    .arg(lineNumber));
         }
 
         const Domain::Writing writing(
-            unescapeCsvField(columns.at(0)),
-            unescapeCsvField(columns.at(1)),
-            unescapeCsvField(columns.at(2)),
-            unescapeCsvField(columns.at(3)),
-            publicationYear,
-            unescapeCsvField(columns.at(5)));
-
+            writingId,
+            authorId,
+            Csv::decodeField(columns.at(kWritingTitleColumn)),
+            Csv::decodeField(columns.at(kWritingDescriptionColumn)));
         const QString error = writing.validationError();
         if (!error.isEmpty()) {
             return Application::LoadWritingsResult::failure(
                 QStringLiteral("Ошибка в строке %1: %2").arg(lineNumber).arg(error));
         }
 
-        writings.append(writing.normalized());
+        writings.append(writing);
     }
 
     return Application::LoadWritingsResult::success(

@@ -19,46 +19,44 @@ QList<Domain::Writing> WritingsService::listWritings() const
     return m_writingsRepository.findAll();
 }
 
-OperationResult WritingsService::addWriting(const Domain::Writing &writing)
+OperationResult WritingsService::addWriting(Domain::Writing writing)
 {
-    Domain::Writing normalized = writing.normalized();
-    const QString error = normalized.validationError();
+    const QString error = writing.validationError();
 
     if (!error.isEmpty()) {
         return OperationResult::failure(error);
     }
 
-    if (!m_authorsRepository.existsById(normalized.authorId())) {
+    if (!m_authorsRepository.existsById(writing.authorId)) {
         return OperationResult::failure(
-            QStringLiteral("Нельзя сохранить произведение без существующего автора."));
+            QStringLiteral("нельзя сохранить произведение без существующего автора"));
     }
 
-    if (normalized.id().isEmpty()) {
-        normalized = normalized.withId(QUuid::createUuid().toString(QUuid::WithoutBraces));
+    if (writing.id.isNull()) {
+        writing.id = QUuid::createUuid();
     }
 
-    return m_writingsRepository.add(normalized);
+    return m_writingsRepository.add(writing);
 }
 
-OperationResult WritingsService::updateWriting(
-    const QString &writingId, const Domain::Writing &writing)
+OperationResult WritingsService::updateWriting(const QUuid &writingId, Domain::Writing writing)
 {
-    const Domain::Writing normalized = writing.normalized().withId(writingId);
-    const QString error = normalized.validationError();
+    writing.id = writingId;
+    const QString error = writing.validationError();
 
     if (!error.isEmpty()) {
         return OperationResult::failure(error);
     }
 
-    if (!m_authorsRepository.existsById(normalized.authorId())) {
+    if (!m_authorsRepository.existsById(writing.authorId)) {
         return OperationResult::failure(
-            QStringLiteral("Нельзя сохранить произведение без существующего автора."));
+            QStringLiteral("нельзя сохранить произведение без существующего автора"));
     }
 
-    return m_writingsRepository.update(writingId, normalized);
+    return m_writingsRepository.update(writingId, writing);
 }
 
-OperationResult WritingsService::removeWriting(const QString &writingId)
+OperationResult WritingsService::removeWriting(const QUuid &writingId)
 {
     return m_writingsRepository.remove(writingId);
 }
@@ -77,10 +75,9 @@ OperationResult WritingsService::loadFromFile(const QString &filePath)
     }
 
     for (const Domain::Writing &writing : loadResult.writings) {
-        if (!m_authorsRepository.existsById(writing.authorId())) {
-            return OperationResult::failure(
-                QStringLiteral(
-                    "Нельзя загрузить произведения: в файле есть ссылки на отсутствующих авторов."));
+        if (!m_authorsRepository.existsById(writing.authorId)) {
+            return OperationResult::failure(QStringLiteral(
+                "нельзя загрузить произведения: в файле есть ссылки на отсутствующих авторов"));
         }
     }
 

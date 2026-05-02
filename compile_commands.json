@@ -1,0 +1,62 @@
+[
+{
+  "directory": "/home/magesty_/Projects/course_part1",
+  "command": "/usr/bin/c++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/magesty_/Projects/course_part1/appcourse_part1_autogen/include -I/home/magesty_/Projects/course_part1 -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -std=gnu++23 -mno-direct-extern-access -o CMakeFiles/appcourse_part1.dir/appcourse_part1_autogen/mocs_compilation.cpp.o -c /home/magesty_/Projects/course_part1/appcourse_part1_autogen/mocs_compilation.cpp",
+  "file": "/home/magesty_/Projects/course_part1/appcourse_part1_autogen/mocs_compilation.cpp",
+  "output": "CMakeFiles/appcourse_part1.dir/appcourse_part1_autogen/mocs_compilation.cpp.o"
+},
+{
+  "directory": "/home/magesty_/Projects/course_part1",
+  "command": "/usr/bin/c++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/magesty_/Projects/course_part1/appcourse_part1_autogen/include -I/home/magesty_/Projects/course_part1 -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -std=gnu++23 -mno-direct-extern-access -o CMakeFiles/appcourse_part1.dir/main.cpp.o -c /home/magesty_/Projects/course_part1/main.cpp",
+  "file": "/home/magesty_/Projects/course_part1/main.cpp",
+  "output": "CMakeFiles/appcourse_part1.dir/main.cpp.o"
+},
+{
+  "directory": "/home/magesty_/Projects/course_part1",
+  "command": "/usr/bin/c++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/magesty_/Projects/course_part1/appcourse_part1_autogen/include -I/home/magesty_/Projects/course_part1 -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -std=gnu++23 -mno-direct-extern-access -o CMakeFiles/appcourse_part1.dir/domain/author.cpp.o -c /home/magesty_/Projects/course_part1/domain/author.cpp",
+  "file": "/home/magesty_/Projects/course_part1/domain/author.cpp",
+  "output": "CMakeFiles/appcourse_part1.dir/domain/author.cpp.o"
+},
+{
+  "directory": "/home/magesty_/Projects/course_part1",
+  "command": "/usr/bin/c++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/magesty_/Projects/course_part1/appcourse_part1_autogen/include -I/home/magesty_/Projects/course_part1 -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -std=gnu++23 -mno-direct-extern-access -o CMakeFiles/appcourse_part1.dir/domain/writing.cpp.o -c /home/magesty_/Projects/course_part1/domain/writing.cpp",
+  "file": "/home/magesty_/Projects/course_part1/domain/writing.cpp",
+  "output": "CMakeFiles/appcourse_part1.dir/domain/writing.cpp.o"
+},
+{
+  "directory": "/home/magesty_/Projects/course_part1",
+  "command": "/usr/bin/c++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/magesty_/Projects/course_part1/appcourse_part1_autogen/include -I/home/magesty_/Projects/course_part1 -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -std=gnu++23 -mno-direct-extern-access -o CMakeFiles/appcourse_part1.dir/application/authors_service.cpp.o -c /home/magesty_/Projects/course_part1/application/authors_service.cpp",
+  "file": "/home/magesty_/Projects/course_part1/application/authors_service.cpp",
+  "output": "CMakeFiles/appcourse_part1.dir/application/authors_service.cpp.o"
+},
+{
+  "directory": "/home/magesty_/Projects/course_part1",
+  "command": "/usr/bin/c++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/magesty_/Projects/course_part1/appcourse_part1_autogen/include -I/home/magesty_/Projects/course_part1 -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -std=gnu++23 -mno-direct-extern-access -o CMakeFiles/appcourse_part1.dir/application/writings_service.cpp.o -c /home/magesty_/Projects/course_part1/application/writings_service.cpp",
+  "file": "/home/magesty_/Projects/course_part1/application/writings_service.cpp",
+  "output": "CMakeFiles/appcourse_part1.dir/application/writings_service.cpp.o"
+},
+{
+  "directory": "/home/magesty_/Projects/course_part1",
+  "command": "/usr/bin/c++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/magesty_/Projects/course_part1/appcourse_part1_autogen/include -I/home/magesty_/Projects/course_part1 -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -std=gnu++23 -mno-direct-extern-access -o CMakeFiles/appcourse_part1.dir/infrastructure/csv_authors_file_storage.cpp.o -c /home/magesty_/Projects/course_part1/infrastructure/csv_authors_file_storage.cpp",
+  "file": "/home/magesty_/Projects/course_part1/infrastructure/csv_authors_file_storage.cpp",
+  "output": "CMakeFiles/appcourse_part1.dir/infrastructure/csv_authors_file_storage.cpp.o"
+},
+{
+  "directory": "/home/magesty_/Projects/course_part1",
+  "command": "/usr/bin/c++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/magesty_/Projects/course_part1/appcourse_part1_autogen/include -I/home/magesty_/Projects/course_part1 -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -std=gnu++23 -mno-direct-extern-access -o CMakeFiles/appcourse_part1.dir/infrastructure/csv_writings_file_storage.cpp.o -c /home/magesty_/Projects/course_part1/infrastructure/csv_writings_file_storage.cpp",
+  "file": "/home/magesty_/Projects/course_part1/infrastructure/csv_writings_file_storage.cpp",
+  "output": "CMakeFiles/appcourse_part1.dir/infrastructure/csv_writings_file_storage.cpp.o"
+},
+{
+  "directory": "/home/magesty_/Projects/course_part1",
+  "command": "/usr/bin/c++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/magesty_/Projects/course_part1/appcourse_part1_autogen/include -I/home/magesty_/Projects/course_part1 -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -std=gnu++23 -mno-direct-extern-access -o CMakeFiles/appcourse_part1.dir/infrastructure/in_memory_authors_repository.cpp.o -c /home/magesty_/Projects/course_part1/infrastructure/in_memory_authors_repository.cpp",
+  "file": "/home/magesty_/Projects/course_part1/infrastructure/in_memory_authors_repository.cpp",
+  "output": "CMakeFiles/appcourse_part1.dir/infrastructure/in_memory_authors_repository.cpp.o"
+},
+{
+  "directory": "/home/magesty_/Projects/course_part1",
+  "command": "/usr/bin/c++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/magesty_/Projects/course_part1/appcourse_part1_autogen/include -I/home/magesty_/Projects/course_part1 -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -std=gnu++23 -mno-direct-extern-access -o CMakeFiles/appcourse_part1.dir/infrastructure/in_memory_writings_repository.cpp.o -c /home/magesty_/Projects/course_part1/infrastructure/in_memory_writings_repository.cpp",
+  "file": "/home/magesty_/Projects/course_part1/infrastructure/in_memory_writings_repository.cpp",
+  "output": "CMakeFiles/appcourse_part1.dir/infrastructure/in_memory_writings_repository.cpp.o"
+}
+]

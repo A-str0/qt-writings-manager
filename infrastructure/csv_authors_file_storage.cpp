@@ -1,81 +1,19 @@
 #include "infrastructure/csv_authors_file_storage.hpp"
+#include "infrastructure/csv_file_storage_utils.hpp"
 
 #include <QFile>
 #include <QSaveFile>
 #include <QStringConverter>
-#include <QStringList>
 #include <QTextStream>
 
 namespace {
 
-const QString kAuthorsHeader = QStringLiteral("id,name,birthYear,country");
+const QString kAuthorsHeader = QStringLiteral("id,name");
+namespace Csv = Infrastructure::CsvFileStorageDetail;
 
-QString escapeCsvField(QString value)
-{
-    value.replace("\r\n", "\n");
-    value.replace('\r', '\n');
-    value.replace('\n', "\\n");
-    value.replace('"', "\"\"");
-    return '"' + value + '"';
-}
-
-QString unescapeCsvField(QString value)
-{
-    value.replace("\\n", "\n");
-    return value;
-}
-
-QStringList parseCsvLine(const QString &line, bool &ok)
-{
-    QStringList values;
-    QString current;
-    bool inQuotes = false;
-
-    for (int index = 0; index < line.size(); ++index) {
-        const QChar character = line.at(index);
-
-        if (inQuotes) {
-            if (character == '"') {
-                if (index + 1 < line.size() && line.at(index + 1) == '"') {
-                    current += '"';
-                    ++index;
-                } else {
-                    inQuotes = false;
-                }
-            } else {
-                current += character;
-            }
-        } else if (character == '"') {
-            inQuotes = true;
-        } else if (character == ',') {
-            values.append(current);
-            current.clear();
-        } else {
-            current += character;
-        }
-    }
-
-    ok = !inQuotes;
-    if (ok) {
-        values.append(current);
-    }
-
-    return values;
-}
-
-bool parseOptionalInt(const QString &text, int &value)
-{
-    value = 0;
-    const QString trimmed = text.trimmed();
-
-    if (trimmed.isEmpty()) {
-        return true;
-    }
-
-    bool ok = false;
-    value = trimmed.toInt(&ok);
-    return ok;
-}
+constexpr qsizetype kAuthorColumnCount = 2;
+constexpr int kAuthorIdColumn = 0;
+constexpr int kAuthorNameColumn = 1;
 
 } // namespace
 
@@ -101,10 +39,10 @@ Application::OperationResult CsvAuthorsFileStorage::save(
     stream << kAuthorsHeader << '\n';
 
     for (const Domain::Author &author : authors) {
-        stream << escapeCsvField(author.id()) << ',' << escapeCsvField(author.name()) << ','
-               << escapeCsvField(
-                      author.birthYear() == 0 ? QString() : QString::number(author.birthYear()))
-               << ',' << escapeCsvField(author.country()) << '\n';
+        stream << Csv::joinLine(QStringList{
+                      Csv::encodeField(Csv::serializeUuid(author.id)),
+                      Csv::encodeField(author.name)})
+               << '\n';
     }
 
     if (!file.commit()) {
@@ -132,53 +70,44 @@ Application::LoadAuthorsResult CsvAuthorsFileStorage::load(const QString &filePa
     QTextStream stream(&file);
     stream.setEncoding(QStringConverter::Utf8);
 
+    if (stream.readLine() != kAuthorsHeader) {
+        return Application::LoadAuthorsResult::failure(
+            QStringLiteral("Неверный заголовок CSV-файла авторов."));
+    }
+
     QList<Domain::Author> authors;
-    int lineNumber = 0;
+    int lineNumber = 1;
 
     while (!stream.atEnd()) {
         const QString line = stream.readLine();
         ++lineNumber;
 
-        if (lineNumber == 1) {
-            if (line.trimmed() != kAuthorsHeader) {
-                return Application::LoadAuthorsResult::failure(
-                    QStringLiteral("Неверный заголовок CSV-файла авторов."));
-            }
+        if (line.isEmpty()) {
             continue;
         }
 
-        if (line.trimmed().isEmpty()) {
-            continue;
-        }
-
-        bool ok = false;
-        const QStringList columns = parseCsvLine(line, ok);
-
-        if (!ok || columns.size() != 4) {
+        const QStringList columns = Csv::splitLine(line);
+        if (columns.size() != kAuthorColumnCount) {
             return Application::LoadAuthorsResult::failure(
                 QStringLiteral("Не удалось разобрать строку %1 в файле авторов.")
                     .arg(lineNumber));
         }
 
-        int birthYear = 0;
-        if (!parseOptionalInt(columns.at(2), birthYear)) {
+        const QUuid authorId = QUuid::fromString(Csv::decodeField(columns.at(kAuthorIdColumn)));
+        if (authorId.isNull()) {
             return Application::LoadAuthorsResult::failure(
-                QStringLiteral("Некорректный год рождения автора в строке %1.").arg(lineNumber));
+                QStringLiteral("Некорректный идентификатор автора в строке %1.")
+                    .arg(lineNumber));
         }
 
-        const Domain::Author author(
-            unescapeCsvField(columns.at(0)),
-            unescapeCsvField(columns.at(1)),
-            birthYear,
-            unescapeCsvField(columns.at(3)));
-
+        const Domain::Author author(authorId, Csv::decodeField(columns.at(kAuthorNameColumn)));
         const QString error = author.validationError();
         if (!error.isEmpty()) {
             return Application::LoadAuthorsResult::failure(
                 QStringLiteral("Ошибка в строке %1: %2").arg(lineNumber).arg(error));
         }
 
-        authors.append(author.normalized());
+        authors.append(author);
     }
 
     return Application::LoadAuthorsResult::success(

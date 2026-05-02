@@ -20,39 +20,38 @@ QList<Domain::Author> AuthorsService::listAuthors() const
     return m_authorsRepository.findAll();
 }
 
-OperationResult AuthorsService::addAuthor(const Domain::Author &author)
+OperationResult AuthorsService::addAuthor(Domain::Author author)
 {
-    Domain::Author normalized = author.normalized();
-    const QString error = normalized.validationError();
+    const QString error = author.validationError();
 
     if (!error.isEmpty()) {
         return OperationResult::failure(error);
     }
 
-    if (normalized.id().isEmpty()) {
-        normalized = normalized.withId(QUuid::createUuid().toString(QUuid::WithoutBraces));
+    if (author.id.isNull()) {
+        author.id = QUuid::createUuid();
     }
 
-    return m_authorsRepository.add(normalized);
+    return m_authorsRepository.add(author);
 }
 
-OperationResult AuthorsService::updateAuthor(const QString &authorId, const Domain::Author &author)
+OperationResult AuthorsService::updateAuthor(const QUuid &authorId, Domain::Author author)
 {
-    const Domain::Author normalized = author.normalized().withId(authorId);
-    const QString error = normalized.validationError();
+    author.id = authorId;
+    const QString error = author.validationError();
 
     if (!error.isEmpty()) {
         return OperationResult::failure(error);
     }
 
-    return m_authorsRepository.update(authorId, normalized);
+    return m_authorsRepository.update(authorId, author);
 }
 
-OperationResult AuthorsService::removeAuthor(const QString &authorId)
+OperationResult AuthorsService::removeAuthor(const QUuid &authorId)
 {
     if (m_writingsRepository.hasForAuthor(authorId)) {
         return OperationResult::failure(
-            QStringLiteral("Нельзя удалить автора, пока у него есть произведения."));
+            QStringLiteral("нельзя удалить автора, пока у него есть произведения"));
     }
 
     return m_authorsRepository.remove(authorId);
@@ -71,16 +70,16 @@ OperationResult AuthorsService::loadFromFile(const QString &filePath)
         return OperationResult::failure(loadResult.message);
     }
 
-    QSet<QString> loadedAuthorIds;
+    QSet<QUuid> loadedAuthorIds;
     for (const Domain::Author &author : loadResult.authors) {
-        loadedAuthorIds.insert(author.id());
+        loadedAuthorIds.insert(author.id);
     }
 
     for (const Domain::Writing &writing : m_writingsRepository.findAll()) {
-        if (!loadedAuthorIds.contains(writing.authorId())) {
+        if (!loadedAuthorIds.contains(writing.authorId)) {
             return OperationResult::failure(
-                QStringLiteral(
-                    "Нельзя загрузить авторов: текущие произведения ссылаются на отсутствующих авторов."));
+                QStringLiteral("нельзя загрузить авторов: текущие произведения ссылаются на "
+                               "отсутствующих авторов"));
         }
     }
 

@@ -1,0 +1,9 @@
+/home/magesty_/Projects/course_part1/CMakeFiles/appcourse_part1.dir
+/home/magesty_/Projects/course_part1/CMakeFiles/edit_cache.dir
+/home/magesty_/Projects/course_part1/CMakeFiles/rebuild_cache.dir
+/home/magesty_/Projects/course_part1/CMakeFiles/list_install_components.dir
+/home/magesty_/Projects/course_part1/CMakeFiles/install.dir
+/home/magesty_/Projects/course_part1/CMakeFiles/install/local.dir
+/home/magesty_/Projects/course_part1/CMakeFiles/install/strip.dir
+/home/magesty_/Projects/course_part1/CMakeFiles/appcourse_part1_autogen_timestamp_deps.dir
+/home/magesty_/Projects/course_part1/CMakeFiles/appcourse_part1_autogen.dir

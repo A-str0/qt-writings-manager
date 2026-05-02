@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QString>
+#include <QUuid>
 
 #include "application/authors_repository.hpp"
 #include "application/writings_file_storage.hpp"
@@ -20,9 +21,9 @@ public:
 
     QList<Domain::Writing> listWritings() const;
 
-    OperationResult addWriting(const Domain::Writing &writing);
-    OperationResult updateWriting(const QString &writingId, const Domain::Writing &writing);
-    OperationResult removeWriting(const QString &writingId);
+    OperationResult addWriting(Domain::Writing writing);
+    OperationResult updateWriting(const QUuid &writingId, Domain::Writing writing);
+    OperationResult removeWriting(const QUuid &writingId);
 
     OperationResult saveToFile(const QString &filePath) const;
     OperationResult loadFromFile(const QString &filePath);
