@@ -42,10 +42,10 @@ Application::OperationResult CsvWritingsFileStorage::save(
 
     for (const Domain::Writing &writing : writings) {
         stream << Csv::joinLine(QStringList{
-                      Csv::encodeField(Csv::serializeUuid(writing.id)),
-                      Csv::encodeField(writing.title),
-                      Csv::encodeField(Csv::serializeUuid(writing.authorId)),
-                      Csv::encodeField(writing.description)})
+                      Csv::encodeField(Csv::serializeUuid(writing.m_id)),
+                      Csv::encodeField(writing.m_title),
+                      Csv::encodeField(Csv::serializeUuid(writing.m_authorId)),
+                      Csv::encodeField(writing.m_description)})
                << '\n';
     }
 

@@ -21,7 +21,7 @@ public:
     Application::OperationResult replaceAll(const QList<Domain::Author> &authors) override;
 
 private:
-    QMap<QUuid, Domain::Author> m_authors;
+    QMap<QUuid, Domain::Author> _authors;
 };
 
 } // namespace Infrastructure

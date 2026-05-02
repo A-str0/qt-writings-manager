@@ -14,10 +14,10 @@ public:
 
     QString validationError() const;
 
-    QUuid id;
-    QUuid authorId;
-    QString title;
-    QString description;
+    QUuid m_id;
+    QUuid m_authorId;
+    QString m_title;
+    QString m_description;
 };
 
 } // namespace Domain

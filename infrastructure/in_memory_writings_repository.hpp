@@ -21,7 +21,7 @@ public:
     Application::OperationResult replaceAll(const QList<Domain::Writing> &writings) override;
 
 private:
-    QMap<QUuid, Domain::Writing> m_writings;
+    QMap<QUuid, Domain::Writing> _writings;
 };
 
 } // namespace Infrastructure

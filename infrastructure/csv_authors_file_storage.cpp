@@ -40,8 +40,8 @@ Application::OperationResult CsvAuthorsFileStorage::save(
 
     for (const Domain::Author &author : authors) {
         stream << Csv::joinLine(QStringList{
-                      Csv::encodeField(Csv::serializeUuid(author.id)),
-                      Csv::encodeField(author.name)})
+                      Csv::encodeField(Csv::serializeUuid(author.m_id)),
+                      Csv::encodeField(author.m_name)})
                << '\n';
     }
 

@@ -5,13 +5,13 @@
 namespace Domain {
 
 Author::Author(QUuid id, QString name)
-    : id(std::move(id))
-    , name(std::move(name))
+    : m_id(std::move(id))
+    , m_name(std::move(name))
 {}
 
 QString Author::validationError() const
 {
-    if (name.trimmed().isEmpty()) {
+    if (m_name.trimmed().isEmpty()) {
         return QStringLiteral("имя автора не может быть пустым");
     }
 

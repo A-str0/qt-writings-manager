@@ -14,8 +14,8 @@ public:
 
     QString validationError() const;
 
-    QUuid id;
-    QString name;
+    QUuid m_id;
+    QString m_name;
 };
 
 } // namespace Domain

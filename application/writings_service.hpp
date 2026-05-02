@@ -29,9 +29,9 @@ public:
     OperationResult loadFromFile(const QString &filePath);
 
 private:
-    WritingsRepository &m_writingsRepository;
-    AuthorsRepository &m_authorsRepository;
-    WritingsFileStorage &m_fileStorage;
+    WritingsRepository &_writingsRepository;
+    AuthorsRepository &_authorsRepository;
+    WritingsFileStorage &_fileStorage;
 };
 
 } // namespace Application

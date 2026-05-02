@@ -13,8 +13,8 @@ namespace Application {
 
 struct OperationResult
 {
-    bool ok = true;
-    QString message;
+    bool m_ok = true;
+    QString m_message;
 
     static OperationResult success(QString message = {}) { return {true, std::move(message)}; }
     static OperationResult failure(QString message) { return {false, std::move(message)}; }
@@ -22,9 +22,9 @@ struct OperationResult
 
 struct LoadAuthorsResult
 {
-    bool ok = false;
-    QString message;
-    QList<Domain::Author> authors;
+    bool m_ok = false;
+    QString m_message;
+    QList<Domain::Author> m_authors;
 
     static LoadAuthorsResult success(QList<Domain::Author> authors, QString message = {})
     {
@@ -36,9 +36,9 @@ struct LoadAuthorsResult
 
 struct LoadWritingsResult
 {
-    bool ok = false;
-    QString message;
-    QList<Domain::Writing> writings;
+    bool m_ok = false;
+    QString m_message;
+    QList<Domain::Writing> m_writings;
 
     static LoadWritingsResult success(QList<Domain::Writing> writings, QString message = {})
     {

@@ -4,50 +4,50 @@ namespace Infrastructure {
 
 QList<Domain::Author> InMemoryAuthorsRepository::findAll() const
 {
-    return m_authors.values();
+    return _authors.values();
 }
 
 bool InMemoryAuthorsRepository::existsById(const QUuid &authorId) const
 {
-    return m_authors.contains(authorId);
+    return _authors.contains(authorId);
 }
 
 Application::OperationResult InMemoryAuthorsRepository::add(const Domain::Author &author)
 {
-    if (author.id.isNull()) {
+    if (author.m_id.isNull()) {
         return Application::OperationResult::failure(
             QStringLiteral("Не удалось сохранить автора без идентификатора."));
     }
 
-    if (m_authors.contains(author.id)) {
+    if (_authors.contains(author.m_id)) {
         return Application::OperationResult::failure(
             QStringLiteral("Автор с таким идентификатором уже существует."));
     }
 
-    m_authors.insert(author.id, author);
+    _authors.insert(author.m_id, author);
     return Application::OperationResult::success(QStringLiteral("Автор добавлен."));
 }
 
 Application::OperationResult InMemoryAuthorsRepository::update(
     const QUuid &authorId, const Domain::Author &author)
 {
-    if (!m_authors.contains(authorId)) {
+    if (!_authors.contains(authorId)) {
         return Application::OperationResult::failure(
             QStringLiteral("Не удалось найти автора для редактирования."));
     }
 
-    m_authors.insert(authorId, author);
+    _authors.insert(authorId, author);
     return Application::OperationResult::success(QStringLiteral("Автор обновлён."));
 }
 
 Application::OperationResult InMemoryAuthorsRepository::remove(const QUuid &authorId)
 {
-    if (!m_authors.contains(authorId)) {
+    if (!_authors.contains(authorId)) {
         return Application::OperationResult::failure(
             QStringLiteral("Выбранный автор уже отсутствует в каталоге."));
     }
 
-    m_authors.remove(authorId);
+    _authors.remove(authorId);
     return Application::OperationResult::success(QStringLiteral("Автор удалён."));
 }
 
@@ -62,20 +62,20 @@ Application::OperationResult InMemoryAuthorsRepository::replaceAll(
             return Application::OperationResult::failure(error);
         }
 
-        if (author.id.isNull()) {
+        if (author.m_id.isNull()) {
             return Application::OperationResult::failure(
                 QStringLiteral("В CSV найден автор без идентификатора."));
         }
 
-        if (nextAuthors.contains(author.id)) {
+        if (nextAuthors.contains(author.m_id)) {
             return Application::OperationResult::failure(
                 QStringLiteral("В CSV найдено несколько авторов с одинаковым идентификатором."));
         }
 
-        nextAuthors.insert(author.id, author);
+        nextAuthors.insert(author.m_id, author);
     }
 
-    m_authors = nextAuthors;
+    _authors = nextAuthors;
     return Application::OperationResult::success();
 }
 
