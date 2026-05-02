@@ -422,4 +422,8 @@ CMakeFiles/appcourse_part1.dir/main.cpp.o: \
  /usr/include/qt6/QtGui/qfontvariableaxis.h \
  /usr/include/qt6/QtWidgets/qsizepolicy.h \
  /usr/include/qt6/QtWidgets/qtabwidget.h \
- /usr/include/qt6/QtWidgets/QWidget
+ /usr/include/qt6/QtGui/QStandardItemModel \
+ /usr/include/qt6/QtGui/qstandarditemmodel.h \
+ /usr/include/qt6/QtCore/qabstractitemmodel.h \
+ /home/magesty_/Projects/course_part1/application/authors_service.hpp \
+ /home/magesty_/Projects/course_part1/application/writings_service.hpp

@@ -75,7 +75,8 @@ OperationResult AuthorsService::loadFromFile(const QString &filePath)
         loadedAuthorIds.insert(author.m_id);
     }
 
-    for (const Domain::Writing &writing : _writingsRepository.findAll()) {
+    const QList<Domain::Writing> writings = _writingsRepository.findAll();
+    for (const Domain::Writing &writing : writings) {
         if (!loadedAuthorIds.contains(writing.m_authorId)) {
             return OperationResult::failure(
                 QStringLiteral("нельзя загрузить авторов: текущие произведения ссылаются на "

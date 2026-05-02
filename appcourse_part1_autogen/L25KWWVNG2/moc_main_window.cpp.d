@@ -1,5 +1,14 @@
 /home/magesty_/Projects/course_part1/appcourse_part1_autogen/L25KWWVNG2/moc_main_window.cpp: /home/magesty_/Projects/course_part1/presentation/main_window.hpp \
   /home/magesty_/Projects/course_part1/appcourse_part1_autogen/moc_predefs.h \
+  /home/magesty_/Projects/course_part1/application/authors_file_storage.hpp \
+  /home/magesty_/Projects/course_part1/application/authors_repository.hpp \
+  /home/magesty_/Projects/course_part1/application/authors_service.hpp \
+  /home/magesty_/Projects/course_part1/application/operation_result.hpp \
+  /home/magesty_/Projects/course_part1/application/writings_file_storage.hpp \
+  /home/magesty_/Projects/course_part1/application/writings_repository.hpp \
+  /home/magesty_/Projects/course_part1/application/writings_service.hpp \
+  /home/magesty_/Projects/course_part1/domain/author.hpp \
+  /home/magesty_/Projects/course_part1/domain/writing.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/errno-base.h \
@@ -319,6 +328,9 @@
   /usr/include/linux/types.h \
   /usr/include/locale.h \
   /usr/include/pthread.h \
+  /usr/include/qt6/QtCore/QList \
+  /usr/include/qt6/QtCore/QString \
+  /usr/include/qt6/QtCore/QUuid \
   /usr/include/qt6/QtCore/q17memory.h \
   /usr/include/qt6/QtCore/q20bit.h \
   /usr/include/qt6/QtCore/q20functional.h \
@@ -328,6 +340,7 @@
   /usr/include/qt6/QtCore/q20utility.h \
   /usr/include/qt6/QtCore/q23type_traits.h \
   /usr/include/qt6/QtCore/q23utility.h \
+  /usr/include/qt6/QtCore/qabstractitemmodel.h \
   /usr/include/qt6/QtCore/qalgorithms.h \
   /usr/include/qt6/QtCore/qalloc.h \
   /usr/include/qt6/QtCore/qanystringview.h \
@@ -442,11 +455,13 @@
   /usr/include/qt6/QtCore/qtypeinfo.h \
   /usr/include/qt6/QtCore/qtypes.h \
   /usr/include/qt6/QtCore/qutf8stringview.h \
+  /usr/include/qt6/QtCore/quuid.h \
   /usr/include/qt6/QtCore/qvariant.h \
   /usr/include/qt6/QtCore/qvarlengtharray.h \
   /usr/include/qt6/QtCore/qversiontagging.h \
   /usr/include/qt6/QtCore/qxptype_traits.h \
   /usr/include/qt6/QtCore/qyieldcpu.h \
+  /usr/include/qt6/QtGui/QStandardItemModel \
   /usr/include/qt6/QtGui/qaction.h \
   /usr/include/qt6/QtGui/qbitmap.h \
   /usr/include/qt6/QtGui/qbrush.h \
@@ -467,13 +482,13 @@
   /usr/include/qt6/QtGui/qregion.h \
   /usr/include/qt6/QtGui/qrgb.h \
   /usr/include/qt6/QtGui/qrgba64.h \
+  /usr/include/qt6/QtGui/qstandarditemmodel.h \
   /usr/include/qt6/QtGui/qtgui-config.h \
   /usr/include/qt6/QtGui/qtguiexports.h \
   /usr/include/qt6/QtGui/qtguiglobal.h \
   /usr/include/qt6/QtGui/qtransform.h \
   /usr/include/qt6/QtGui/qwindowdefs.h \
   /usr/include/qt6/QtWidgets/QMainWindow \
-  /usr/include/qt6/QtWidgets/QWidget \
   /usr/include/qt6/QtWidgets/qmainwindow.h \
   /usr/include/qt6/QtWidgets/qsizepolicy.h \
   /usr/include/qt6/QtWidgets/qtabwidget.h \

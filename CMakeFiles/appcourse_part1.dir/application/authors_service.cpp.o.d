@@ -1,13 +1,15 @@
-CMakeFiles/appcourse_part1.dir/appcourse_part1_autogen/mocs_compilation.cpp.o: \
- /home/magesty_/Projects/course_part1/appcourse_part1_autogen/mocs_compilation.cpp \
+CMakeFiles/appcourse_part1.dir/application/authors_service.cpp.o: \
+ /home/magesty_/Projects/course_part1/application/authors_service.cpp \
  /usr/include/stdc-predef.h \
- /home/magesty_/Projects/course_part1/appcourse_part1_autogen/L25KWWVNG2/moc_main_window.cpp \
- /home/magesty_/Projects/course_part1/appcourse_part1_autogen/L25KWWVNG2/../../presentation/main_window.hpp \
- /usr/include/qt6/QtWidgets/QMainWindow \
- /usr/include/qt6/QtWidgets/qmainwindow.h \
- /usr/include/qt6/QtWidgets/qtwidgetsglobal.h \
- /usr/include/qt6/QtGui/qtguiglobal.h /usr/include/qt6/QtCore/qglobal.h \
- /usr/include/c++/15.2.1/type_traits \
+ /home/magesty_/Projects/course_part1/application/authors_service.hpp \
+ /usr/include/qt6/QtCore/QList /usr/include/qt6/QtCore/qlist.h \
+ /usr/include/qt6/QtCore/qarraydatapointer.h \
+ /usr/include/qt6/QtCore/qarraydataops.h \
+ /usr/include/qt6/QtCore/qarraydata.h /usr/include/qt6/QtCore/qpair.h \
+ /usr/include/qt6/QtCore/qcontainerfwd.h \
+ /usr/include/qt6/QtCore/qtconfigmacros.h \
+ /usr/include/qt6/QtCore/qtconfiginclude.h \
+ /usr/include/c++/15.2.1/version /usr/include/c++/15.2.1/bits/version.h \
  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -16,44 +18,41 @@ CMakeFiles/appcourse_part1.dir/appcourse_part1_autogen/mocs_compilation.cpp.o: \
  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h \
  /usr/include/c++/15.2.1/pstl/pstl_config.h \
- /usr/include/c++/15.2.1/bits/version.h /usr/include/c++/15.2.1/cstddef \
- /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h \
+ /usr/include/qt6/QtCore/qconfig.h \
+ /usr/include/qt6/QtCore/qtcore-config.h \
+ /usr/include/qt6/QtCore/qtdeprecationdefinitions.h \
+ /usr/include/qt6/QtCore/qcompilerdetection.h \
+ /usr/include/qt6/QtCore/qprocessordetection.h \
+ /usr/include/qt6/QtCore/qsystemdetection.h \
  /usr/include/c++/15.2.1/utility \
  /usr/include/c++/15.2.1/bits/stl_relops.h \
  /usr/include/c++/15.2.1/bits/stl_pair.h \
- /usr/include/c++/15.2.1/bits/move.h \
+ /usr/include/c++/15.2.1/type_traits /usr/include/c++/15.2.1/bits/move.h \
  /usr/include/c++/15.2.1/bits/utility.h /usr/include/c++/15.2.1/compare \
  /usr/include/c++/15.2.1/concepts \
  /usr/include/c++/15.2.1/initializer_list \
  /usr/include/c++/15.2.1/ext/numeric_traits.h \
  /usr/include/c++/15.2.1/bits/cpp_type_traits.h \
  /usr/include/c++/15.2.1/ext/type_traits.h \
+ /usr/include/qt6/QtCore/qtversionchecks.h /usr/include/assert.h \
+ /usr/include/qt6/QtCore/qtypes.h /usr/include/qt6/QtCore/qassert.h \
+ /usr/include/qt6/QtCore/qtcoreexports.h \
+ /usr/include/qt6/QtCore/qtdeprecationmarkers.h \
+ /usr/include/qt6/QtCore/qtclasshelpermacros.h \
+ /usr/include/qt6/QtCore/qtnoop.h /usr/include/c++/15.2.1/cstddef \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h \
  /usr/include/c++/15.2.1/cstdint \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/libc-header-start.h \
  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
  /usr/include/bits/time64.h /usr/include/bits/wchar.h \
  /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \
- /usr/include/bits/stdint-least.h /usr/include/assert.h \
+ /usr/include/bits/stdint-least.h /usr/include/c++/15.2.1/stdfloat \
+ /usr/include/c++/15.2.1/limits /usr/include/qt6/QtCore/qglobal.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdbool.h \
  /usr/include/qt6/QtCore/qtcoreglobal.h \
- /usr/include/qt6/QtCore/qtversionchecks.h \
- /usr/include/qt6/QtCore/qtconfiginclude.h \
- /usr/include/c++/15.2.1/version /usr/include/qt6/QtCore/qconfig.h \
- /usr/include/qt6/QtCore/qtcore-config.h \
- /usr/include/qt6/QtCore/qtconfigmacros.h \
- /usr/include/qt6/QtCore/qtdeprecationdefinitions.h \
- /usr/include/qt6/QtCore/qcompilerdetection.h \
- /usr/include/qt6/QtCore/qprocessordetection.h \
- /usr/include/qt6/QtCore/qsystemdetection.h \
- /usr/include/qt6/QtCore/qtcoreexports.h \
- /usr/include/qt6/QtCore/qtdeprecationmarkers.h \
- /usr/include/qt6/QtCore/qtclasshelpermacros.h \
  /usr/include/qt6/QtCore/qtpreprocessorsupport.h \
- /usr/include/qt6/QtCore/qassert.h /usr/include/qt6/QtCore/qtnoop.h \
- /usr/include/qt6/QtCore/qtypes.h /usr/include/c++/15.2.1/stdfloat \
  /usr/include/qt6/QtCore/qtversion.h /usr/include/qt6/QtCore/qtypeinfo.h \
- /usr/include/qt6/QtCore/qcontainerfwd.h /usr/include/c++/15.2.1/limits \
  /usr/include/qt6/QtCore/qsysinfo.h /usr/include/qt6/QtCore/qlogging.h \
  /usr/include/qt6/QtCore/qflags.h /usr/include/qt6/QtCore/qcompare_impl.h \
  /usr/include/c++/15.2.1/algorithm \
@@ -188,62 +187,22 @@ CMakeFiles/appcourse_part1.dir/appcourse_part1_autogen/mocs_compilation.cpp.o: \
  /usr/include/qt6/QtCore/qtenvironmentvariables.h \
  /usr/include/qt6/QtCore/qtresource.h \
  /usr/include/qt6/QtCore/qttranslation.h \
- /usr/include/qt6/QtCore/qversiontagging.h \
- /usr/include/qt6/QtGui/qtgui-config.h \
- /usr/include/qt6/QtGui/qtguiexports.h \
- /usr/include/qt6/QtWidgets/qtwidgets-config.h \
- /usr/include/qt6/QtWidgets/qtwidgetsexports.h \
- /usr/include/qt6/QtWidgets/qwidget.h \
- /usr/include/qt6/QtGui/qwindowdefs.h \
- /usr/include/qt6/QtCore/qobjectdefs.h \
- /usr/include/qt6/QtCore/qnamespace.h /usr/include/qt6/QtCore/qcompare.h \
- /usr/include/qt6/QtCore/qstdlibdetection.h \
- /usr/include/qt6/QtCore/qcomparehelpers.h \
- /usr/include/c++/15.2.1/functional \
- /usr/include/c++/15.2.1/bits/stl_function.h \
- /usr/include/c++/15.2.1/backward/binders.h \
- /usr/include/c++/15.2.1/bits/refwrap.h \
- /usr/include/c++/15.2.1/bits/std_function.h \
- /usr/include/c++/15.2.1/unordered_map \
- /usr/include/c++/15.2.1/bits/unordered_map.h \
- /usr/include/c++/15.2.1/bits/hashtable.h \
- /usr/include/c++/15.2.1/bits/hashtable_policy.h \
- /usr/include/c++/15.2.1/ext/aligned_buffer.h \
- /usr/include/c++/15.2.1/ext/alloc_traits.h \
- /usr/include/c++/15.2.1/bits/alloc_traits.h \
- /usr/include/c++/15.2.1/bits/memoryfwd.h \
- /usr/include/c++/15.2.1/bits/allocator.h \
- /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
- /usr/include/c++/15.2.1/bits/new_allocator.h \
- /usr/include/c++/15.2.1/bits/node_handle.h \
- /usr/include/c++/15.2.1/bits/range_access.h \
- /usr/include/c++/15.2.1/bits/erase_if.h \
- /usr/include/c++/15.2.1/bits/memory_resource.h \
- /usr/include/c++/15.2.1/bits/uses_allocator_args.h \
- /usr/include/c++/15.2.1/vector \
- /usr/include/c++/15.2.1/bits/stl_uninitialized.h \
- /usr/include/c++/15.2.1/bits/stl_vector.h \
- /usr/include/c++/15.2.1/bits/stl_bvector.h \
- /usr/include/c++/15.2.1/bits/vector.tcc \
- /usr/include/c++/15.2.1/bits/formatfwd.h /usr/include/c++/15.2.1/array \
- /usr/include/c++/15.2.1/bits/move_only_function.h \
- /usr/include/c++/15.2.1/bits/mofunc_impl.h \
- /usr/include/qt6/QtCore/qtmetamacros.h \
- /usr/include/qt6/QtCore/qobjectdefs_impl.h \
- /usr/include/qt6/QtCore/qfunctionaltools_impl.h \
- /usr/include/c++/15.2.1/memory \
- /usr/include/c++/15.2.1/bits/stl_raw_storage_iter.h \
- /usr/include/c++/15.2.1/bits/align.h \
- /usr/include/c++/15.2.1/bits/unique_ptr.h \
- /usr/include/c++/15.2.1/bits/ostream.h /usr/include/c++/15.2.1/ios \
+ /usr/include/qt6/QtCore/qversiontagging.h /usr/include/string.h \
+ /usr/include/strings.h /usr/include/qt6/QtCore/qcontainertools_impl.h \
+ /usr/include/qt6/QtCore/qxptype_traits.h \
+ /usr/include/qt6/QtCore/q23type_traits.h /usr/include/c++/15.2.1/cstring \
+ /usr/include/c++/15.2.1/iterator \
+ /usr/include/c++/15.2.1/bits/stream_iterator.h \
  /usr/include/c++/15.2.1/iosfwd /usr/include/c++/15.2.1/bits/stringfwd.h \
+ /usr/include/c++/15.2.1/bits/memoryfwd.h \
  /usr/include/c++/15.2.1/bits/postypes.h /usr/include/c++/15.2.1/cwchar \
  /usr/include/wchar.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdarg.h \
  /usr/include/bits/types/wint_t.h /usr/include/bits/types/mbstate_t.h \
  /usr/include/bits/types/__mbstate_t.h /usr/include/bits/types/__FILE.h \
  /usr/include/bits/types/FILE.h \
- /usr/include/c++/15.2.1/bits/char_traits.h \
+ /usr/include/c++/15.2.1/bits/streambuf_iterator.h \
+ /usr/include/c++/15.2.1/streambuf \
  /usr/include/c++/15.2.1/bits/localefwd.h \
  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++locale.h \
  /usr/include/c++/15.2.1/clocale /usr/include/locale.h \
@@ -254,9 +213,19 @@ CMakeFiles/appcourse_part1.dir/appcourse_part1_autogen/mocs_compilation.cpp.o: \
  /usr/include/sys/single_threaded.h \
  /usr/include/c++/15.2.1/bits/locale_classes.h \
  /usr/include/c++/15.2.1/string \
+ /usr/include/c++/15.2.1/bits/char_traits.h \
+ /usr/include/c++/15.2.1/bits/allocator.h \
+ /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
+ /usr/include/c++/15.2.1/bits/new_allocator.h \
  /usr/include/c++/15.2.1/bits/ostream_insert.h \
  /usr/include/c++/15.2.1/bits/cxxabi_forced.h \
+ /usr/include/c++/15.2.1/bits/stl_function.h \
+ /usr/include/c++/15.2.1/backward/binders.h \
+ /usr/include/c++/15.2.1/bits/refwrap.h \
+ /usr/include/c++/15.2.1/bits/range_access.h \
  /usr/include/c++/15.2.1/bits/basic_string.h \
+ /usr/include/c++/15.2.1/ext/alloc_traits.h \
+ /usr/include/c++/15.2.1/bits/alloc_traits.h \
  /usr/include/c++/15.2.1/string_view \
  /usr/include/c++/15.2.1/bits/string_view.tcc \
  /usr/include/c++/15.2.1/ext/string_conversions.h \
@@ -266,43 +235,61 @@ CMakeFiles/appcourse_part1.dir/appcourse_part1_autogen/mocs_compilation.cpp.o: \
  /usr/include/bits/types/cookie_io_functions_t.h \
  /usr/include/bits/stdio_lim.h /usr/include/c++/15.2.1/bits/charconv.h \
  /usr/include/c++/15.2.1/bits/basic_string.tcc \
+ /usr/include/c++/15.2.1/bits/memory_resource.h \
+ /usr/include/c++/15.2.1/bits/uses_allocator_args.h \
  /usr/include/c++/15.2.1/bits/locale_classes.tcc \
  /usr/include/c++/15.2.1/system_error \
  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/error_constants.h \
- /usr/include/c++/15.2.1/stdexcept /usr/include/c++/15.2.1/streambuf \
+ /usr/include/c++/15.2.1/stdexcept \
  /usr/include/c++/15.2.1/bits/streambuf.tcc \
+ /usr/include/c++/15.2.1/memory \
+ /usr/include/c++/15.2.1/bits/stl_uninitialized.h \
+ /usr/include/c++/15.2.1/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/15.2.1/bits/align.h \
+ /usr/include/c++/15.2.1/bits/unique_ptr.h \
+ /usr/include/c++/15.2.1/bits/ostream.h /usr/include/c++/15.2.1/ios \
  /usr/include/c++/15.2.1/bits/basic_ios.h \
  /usr/include/c++/15.2.1/bits/locale_facets.h \
  /usr/include/c++/15.2.1/cwctype /usr/include/wctype.h \
  /usr/include/bits/wctype-wchar.h \
  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/ctype_base.h \
- /usr/include/c++/15.2.1/bits/streambuf_iterator.h \
  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/ctype_inline.h \
  /usr/include/c++/15.2.1/bits/locale_facets.tcc \
  /usr/include/c++/15.2.1/bits/basic_ios.tcc \
  /usr/include/c++/15.2.1/bits/shared_ptr.h \
  /usr/include/c++/15.2.1/bits/shared_ptr_base.h \
  /usr/include/c++/15.2.1/bits/allocated_ptr.h \
+ /usr/include/c++/15.2.1/ext/aligned_buffer.h \
  /usr/include/c++/15.2.1/ext/concurrence.h \
  /usr/include/c++/15.2.1/bits/shared_ptr_atomic.h \
  /usr/include/c++/15.2.1/backward/auto_ptr.h \
  /usr/include/c++/15.2.1/bits/ranges_uninitialized.h \
  /usr/include/c++/15.2.1/bits/out_ptr.h \
  /usr/include/c++/15.2.1/pstl/glue_memory_defs.h \
- /usr/include/qt6/QtCore/qobject.h /usr/include/qt6/QtCore/qstring.h \
- /usr/include/qt6/QtCore/qchar.h /usr/include/qt6/QtCore/qstringview.h \
- /usr/include/qt6/QtCore/qbytearray.h /usr/include/qt6/QtCore/qrefcount.h \
- /usr/include/qt6/QtCore/qarraydata.h /usr/include/qt6/QtCore/qpair.h \
- /usr/include/string.h /usr/include/strings.h \
- /usr/include/qt6/QtCore/qarraydatapointer.h \
- /usr/include/qt6/QtCore/qarraydataops.h \
- /usr/include/qt6/QtCore/qcontainertools_impl.h \
- /usr/include/qt6/QtCore/qxptype_traits.h \
- /usr/include/qt6/QtCore/q23type_traits.h /usr/include/c++/15.2.1/cstring \
- /usr/include/c++/15.2.1/iterator \
- /usr/include/c++/15.2.1/bits/stream_iterator.h \
+ /usr/include/qt6/QtCore/qnamespace.h /usr/include/qt6/QtCore/qcompare.h \
+ /usr/include/qt6/QtCore/qstdlibdetection.h \
+ /usr/include/qt6/QtCore/qcomparehelpers.h \
+ /usr/include/c++/15.2.1/functional \
+ /usr/include/c++/15.2.1/bits/std_function.h \
+ /usr/include/c++/15.2.1/unordered_map \
+ /usr/include/c++/15.2.1/bits/unordered_map.h \
+ /usr/include/c++/15.2.1/bits/hashtable.h \
+ /usr/include/c++/15.2.1/bits/hashtable_policy.h \
+ /usr/include/c++/15.2.1/bits/node_handle.h \
+ /usr/include/c++/15.2.1/bits/erase_if.h /usr/include/c++/15.2.1/vector \
+ /usr/include/c++/15.2.1/bits/stl_vector.h \
+ /usr/include/c++/15.2.1/bits/stl_bvector.h \
+ /usr/include/c++/15.2.1/bits/vector.tcc \
+ /usr/include/c++/15.2.1/bits/formatfwd.h /usr/include/c++/15.2.1/array \
+ /usr/include/c++/15.2.1/bits/move_only_function.h \
+ /usr/include/c++/15.2.1/bits/mofunc_impl.h \
+ /usr/include/qt6/QtCore/qtmetamacros.h \
  /usr/include/qt6/QtCore/q20functional.h \
  /usr/include/qt6/QtCore/q20memory.h /usr/include/qt6/QtCore/q17memory.h \
+ /usr/include/qt6/QtCore/qhashfunctions.h \
+ /usr/include/qt6/QtCore/qstring.h /usr/include/qt6/QtCore/qchar.h \
+ /usr/include/qt6/QtCore/qstringview.h \
+ /usr/include/qt6/QtCore/qbytearray.h /usr/include/qt6/QtCore/qrefcount.h \
  /usr/include/qt6/QtCore/qbytearrayalgorithms.h \
  /usr/include/qt6/QtCore/qbytearrayview.h \
  /usr/include/qt6/QtCore/qstringfwd.h /usr/include/c++/15.2.1/stdlib.h \
@@ -314,7 +301,6 @@ CMakeFiles/appcourse_part1.dir/appcourse_part1_autogen/mocs_compilation.cpp.o: \
  /usr/include/qt6/QtCore/qstringbuilder.h \
  /usr/include/qt6/QtCore/qstringconverter.h \
  /usr/include/qt6/QtCore/qstringconverter_base.h \
- /usr/include/qt6/QtCore/qlist.h /usr/include/qt6/QtCore/qhashfunctions.h \
  /usr/include/c++/15.2.1/numeric \
  /usr/include/c++/15.2.1/bits/stl_numeric.h \
  /usr/include/c++/15.2.1/pstl/glue_numeric_defs.h \
@@ -323,14 +309,12 @@ CMakeFiles/appcourse_part1.dir/appcourse_part1_autogen/mocs_compilation.cpp.o: \
  /usr/include/qt6/QtCore/qbytearraylist.h \
  /usr/include/qt6/QtCore/qstringlist.h \
  /usr/include/qt6/QtCore/qalgorithms.h /usr/include/qt6/QtCore/q20bit.h \
- /usr/include/qt6/QtCore/qstringmatcher.h \
- /usr/include/qt6/QtCore/qscopedpointer.h \
- /usr/include/qt6/QtCore/qmetatype.h \
- /usr/include/qt6/QtCore/qdatastream.h \
- /usr/include/qt6/QtCore/qiodevicebase.h \
- /usr/include/qt6/QtCore/qfloat16.h /usr/include/qt6/QtCore/qmath.h \
- /usr/include/qt6/QtCore/qtformat_impl.h /usr/include/c++/15.2.1/format \
- /usr/include/c++/15.2.1/charconv /usr/include/c++/15.2.1/locale \
+ /usr/include/qt6/QtCore/qstringmatcher.h /usr/include/qt6/QtCore/QString \
+ /usr/include/qt6/QtCore/QUuid /usr/include/qt6/QtCore/quuid.h \
+ /usr/include/qt6/QtCore/qendian.h /usr/include/qt6/QtCore/qfloat16.h \
+ /usr/include/qt6/QtCore/qmath.h /usr/include/qt6/QtCore/qtformat_impl.h \
+ /usr/include/c++/15.2.1/format /usr/include/c++/15.2.1/charconv \
+ /usr/include/c++/15.2.1/locale \
  /usr/include/c++/15.2.1/bits/locale_facets_nonio.h \
  /usr/include/c++/15.2.1/ctime \
  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/time_members.h \
@@ -340,74 +324,11 @@ CMakeFiles/appcourse_part1.dir/appcourse_part1_autogen/mocs_compilation.cpp.o: \
  /usr/include/c++/15.2.1/bits/locale_conv.h \
  /usr/include/c++/15.2.1/bits/unicode.h \
  /usr/include/c++/15.2.1/bits/unicode-data.h \
- /usr/include/qt6/QtCore/qiterable.h \
- /usr/include/qt6/QtCore/qtaggedpointer.h \
- /usr/include/qt6/QtCore/qmetacontainer.h \
- /usr/include/qt6/QtCore/qcontainerinfo.h \
- /usr/include/qt6/QtCore/qscopeguard.h /usr/include/c++/15.2.1/list \
- /usr/include/c++/15.2.1/bits/stl_list.h \
- /usr/include/c++/15.2.1/bits/list.tcc /usr/include/c++/15.2.1/map \
- /usr/include/c++/15.2.1/bits/stl_tree.h \
- /usr/include/c++/15.2.1/bits/stl_map.h \
- /usr/include/c++/15.2.1/bits/stl_multimap.h \
- /usr/include/qt6/QtCore/qobject_impl.h \
- /usr/include/qt6/QtCore/qbindingstorage.h /usr/include/c++/15.2.1/chrono \
- /usr/include/c++/15.2.1/bits/chrono.h /usr/include/c++/15.2.1/ratio \
- /usr/include/c++/15.2.1/sstream /usr/include/c++/15.2.1/istream \
- /usr/include/c++/15.2.1/ostream /usr/include/c++/15.2.1/bits/ostream.tcc \
- /usr/include/c++/15.2.1/bits/istream.tcc \
- /usr/include/c++/15.2.1/bits/sstream.tcc \
- /usr/include/c++/15.2.1/bits/chrono_io.h /usr/include/c++/15.2.1/iomanip \
- /usr/include/c++/15.2.1/bits/quoted_string.h \
- /usr/include/qt6/QtCore/qmargins.h \
- /usr/include/qt6/QtCore/qcheckedint_impl.h \
- /usr/include/qt6/QtCore/q23utility.h \
- /usr/include/qt6/QtCore/q20utility.h /usr/include/qt6/QtGui/qaction.h \
- /usr/include/qt6/QtGui/qkeysequence.h /usr/include/qt6/QtGui/qicon.h \
- /usr/include/qt6/QtCore/qsize.h /usr/include/qt6/QtGui/qpixmap.h \
- /usr/include/qt6/QtGui/qpaintdevice.h /usr/include/qt6/QtCore/qrect.h \
- /usr/include/qt6/QtCore/qpoint.h /usr/include/qt6/QtGui/qcolor.h \
- /usr/include/qt6/QtGui/qrgb.h /usr/include/qt6/QtGui/qrgba64.h \
- /usr/include/qt6/QtCore/qshareddata.h /usr/include/qt6/QtGui/qimage.h \
- /usr/include/qt6/QtGui/qpixelformat.h \
- /usr/include/qt6/QtGui/qtransform.h /usr/include/qt6/QtGui/qpolygon.h \
- /usr/include/qt6/QtGui/qregion.h /usr/include/qt6/QtCore/qspan.h \
- /usr/include/c++/15.2.1/cassert /usr/include/qt6/QtCore/q20iterator.h \
- /usr/include/qt6/QtCore/qline.h /usr/include/qt6/QtCore/qvariant.h \
- /usr/include/qt6/QtCore/qdebug.h /usr/include/qt6/QtCore/qtextstream.h \
- /usr/include/qt6/QtCore/qcontiguouscache.h \
- /usr/include/qt6/QtCore/qsharedpointer.h \
- /usr/include/qt6/QtCore/qsharedpointer_impl.h \
- /usr/include/c++/15.2.1/set /usr/include/c++/15.2.1/bits/stl_set.h \
- /usr/include/c++/15.2.1/bits/stl_multiset.h \
- /usr/include/c++/15.2.1/unordered_set \
- /usr/include/c++/15.2.1/bits/unordered_set.h \
- /usr/include/qt6/QtCore/qmap.h \
- /usr/include/qt6/QtCore/qshareddata_impl.h \
- /usr/include/qt6/QtCore/qset.h /usr/include/qt6/QtCore/qhash.h \
- /usr/include/qt6/QtCore/qvarlengtharray.h \
- /usr/include/qt6/QtCore/qalloc.h /usr/include/qt6/QtGui/qpalette.h \
- /usr/include/qt6/QtGui/qbrush.h /usr/include/qt6/QtGui/qfont.h \
- /usr/include/qt6/QtCore/qendian.h /usr/include/qt6/QtGui/qfontmetrics.h \
- /usr/include/qt6/QtGui/qfontinfo.h \
- /usr/include/qt6/QtGui/qfontvariableaxis.h \
- /usr/include/qt6/QtWidgets/qsizepolicy.h \
- /usr/include/qt6/QtGui/qcursor.h /usr/include/qt6/QtGui/qbitmap.h \
- /usr/include/qt6/QtWidgets/qtabwidget.h \
- /usr/include/qt6/QtGui/QStandardItemModel \
- /usr/include/qt6/QtGui/qstandarditemmodel.h \
- /usr/include/qt6/QtCore/qabstractitemmodel.h \
- /home/magesty_/Projects/course_part1/application/authors_service.hpp \
- /usr/include/qt6/QtCore/QList /usr/include/qt6/QtCore/QString \
- /usr/include/qt6/QtCore/QUuid /usr/include/qt6/QtCore/quuid.h \
  /home/magesty_/Projects/course_part1/application/authors_file_storage.hpp \
  /home/magesty_/Projects/course_part1/application/operation_result.hpp \
  /home/magesty_/Projects/course_part1/domain/author.hpp \
  /home/magesty_/Projects/course_part1/domain/writing.hpp \
  /home/magesty_/Projects/course_part1/application/authors_repository.hpp \
  /home/magesty_/Projects/course_part1/application/writings_repository.hpp \
- /home/magesty_/Projects/course_part1/application/writings_service.hpp \
- /home/magesty_/Projects/course_part1/application/writings_file_storage.hpp \
- /usr/include/qt6/QtCore/qtmochelpers.h \
- /usr/include/qt6/QtCore/qtmocconstants.h \
- /usr/include/qt6/QtCore/q20algorithm.h
+ /usr/include/qt6/QtCore/QSet /usr/include/qt6/QtCore/qset.h \
+ /usr/include/qt6/QtCore/qhash.h
