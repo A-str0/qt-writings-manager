@@ -11,7 +11,6 @@
 #include <QPlainTextEdit>
 #include <QPushButton>
 #include <QSplitter>
-#include <QStandardItem>
 #include <QStatusBar>
 #include <QTableView>
 #include <QVBoxLayout>
@@ -19,21 +18,7 @@
 
 namespace {
 
-constexpr int kIdRole = Qt::UserRole + 1;
-constexpr int kAuthorIdRole = Qt::UserRole + 2;
 const QString kCsvFilter = QStringLiteral("CSV files (*.csv);;All files (*)");
-
-QString uuidToText(const QUuid &id)
-{
-    return id.toString(QUuid::WithoutBraces);
-}
-
-QStandardItem *makeReadOnlyItem(const QString &text)
-{
-    auto *item = new QStandardItem(text);
-    item->setEditable(false);
-    return item;
-}
 
 QString openCsvFile(QWidget *parent, const QString &title)
 {
@@ -46,15 +31,7 @@ QString saveCsvFile(QWidget *parent, const QString &title)
     if (!filePath.isEmpty() && !filePath.endsWith(QStringLiteral(".csv"), Qt::CaseInsensitive)) {
         filePath += QStringLiteral(".csv");
     }
-
     return filePath;
-}
-
-void clearModel(QStandardItemModel &model)
-{
-    if (model.rowCount() > 0) {
-        model.removeRows(0, model.rowCount());
-    }
 }
 
 void clearSelection(QTableView *tableView)
@@ -104,16 +81,11 @@ void MainWindow::buildUi()
     setCentralWidget(centralWidget);
     statusBar()->setSizeGripEnabled(false);
 
-    _authorsModel.setColumnCount(2);
-    _authorsModel.setHorizontalHeaderLabels({QStringLiteral("Имя автора"), QStringLiteral("ID")});
-    _authorsTableView->setModel(&_authorsModel);
+    _authorsTableView->setModel(&_authorsTableModel);
     _authorsTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     _authorsTableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
-    _writingsModel.setColumnCount(4);
-    _writingsModel.setHorizontalHeaderLabels(
-        {QStringLiteral("Название"), QStringLiteral("Автор"), QStringLiteral("Описание"), QStringLiteral("ID")});
-    _writingsTableView->setModel(&_writingsModel);
+    _writingsTableView->setModel(&_writingsTableModel);
     _writingsTableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     _writingsTableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
     _writingsTableView->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
@@ -285,7 +257,9 @@ void MainWindow::onSaveAuthorsClicked()
 
 void MainWindow::onAddAuthorClicked()
 {
-    if (!showResult(_authorsService.addAuthor(authorFromForm()))) {
+    const Domain::Author author(QUuid(), _authorNameEdit->text().trimmed());
+
+    if (!showResult(_authorsService.addAuthor(author))) {
         return;
     }
 
@@ -303,7 +277,9 @@ void MainWindow::onUpdateAuthorClicked()
     }
 
     const QUuid writingId = currentWritingId();
-    if (!showResult(_authorsService.updateAuthor(authorId, authorFromForm()))) {
+    const Domain::Author author(authorId, _authorNameEdit->text().trimmed());
+
+    if (!showResult(_authorsService.updateAuthor(authorId, author))) {
         return;
     }
 
@@ -337,15 +313,14 @@ void MainWindow::onClearAuthorClicked()
 
 void MainWindow::onAuthorSelectionChanged()
 {
-    const QUuid authorId = currentAuthorId();
-    if (authorId.isNull()) {
-        updateButtons();
+    const QModelIndex currentIndex = _authorsTableView->currentIndex();
+    if (!currentIndex.isValid()) {
+        clearAuthorForm();
         return;
     }
 
-    const QModelIndex currentIndex = _authorsTableView->currentIndex();
-    fillAuthorForm(Domain::Author(
-        authorId, _authorsModel.index(currentIndex.row(), 0).data().toString()));
+    const Domain::Author &author = _authorsTableModel.authorAt(currentIndex.row());
+    _authorNameEdit->setText(author.m_name);
     updateButtons();
 }
 
@@ -376,10 +351,16 @@ void MainWindow::onSaveWritingsClicked()
 
 void MainWindow::onAddWritingClicked()
 {
-    Domain::Writing writing;
-    if (!writingFromForm(writing)) {
+    if (_writingAuthorCombo->count() == 0) {
+        showStatus(QStringLiteral("Сначала добавьте хотя бы одного автора."));
         return;
     }
+
+    const Domain::Writing writing(
+        QUuid(),
+        _writingAuthorCombo->currentData().toUuid(),
+        _writingTitleEdit->text().trimmed(),
+        _writingDescriptionEdit->toPlainText().trimmed());
 
     if (!showResult(_writingsService.addWriting(writing))) {
         return;
@@ -397,10 +378,16 @@ void MainWindow::onUpdateWritingClicked()
         return;
     }
 
-    Domain::Writing writing;
-    if (!writingFromForm(writing)) {
+    if (_writingAuthorCombo->count() == 0) {
+        showStatus(QStringLiteral("Сначала добавьте хотя бы одного автора."));
         return;
     }
+
+    const Domain::Writing writing(
+        writingId,
+        _writingAuthorCombo->currentData().toUuid(),
+        _writingTitleEdit->text().trimmed(),
+        _writingDescriptionEdit->toPlainText().trimmed());
 
     if (!showResult(_writingsService.updateWriting(writingId, writing))) {
         return;
@@ -433,46 +420,40 @@ void MainWindow::onClearWritingClicked()
 
 void MainWindow::onWritingSelectionChanged()
 {
-    const QUuid writingId = currentWritingId();
-    if (writingId.isNull()) {
-        updateButtons();
+    const QModelIndex currentIndex = _writingsTableView->currentIndex();
+    if (!currentIndex.isValid()) {
+        clearWritingForm();
         return;
     }
 
-    const QModelIndex currentIndex = _writingsTableView->currentIndex();
-    const QModelIndex titleIndex = _writingsModel.index(currentIndex.row(), 0);
+    const Domain::Writing &writing = _writingsTableModel.writingAt(currentIndex.row());
+    _writingTitleEdit->setText(writing.m_title);
+    _writingDescriptionEdit->setPlainText(writing.m_description);
 
-    fillWritingForm(Domain::Writing(
-        writingId,
-        titleIndex.data(kAuthorIdRole).toUuid(),
-        titleIndex.data().toString(),
-        _writingsModel.index(currentIndex.row(), 2).data().toString()));
+    const int comboIndex = _writingAuthorCombo->findData(writing.m_authorId);
+    if (comboIndex >= 0) {
+        _writingAuthorCombo->setCurrentIndex(comboIndex);
+    }
+
     updateButtons();
 }
 
 void MainWindow::refreshAuthorsTable(const QUuid &preferredAuthorId)
 {
-    clearModel(_authorsModel);
-
-    const QList<Domain::Author> authors = _authorsService.listAuthors();
-    for (const Domain::Author &author : authors) {
-        appendAuthorRow(author);
-    }
-
-    selectRowById(_authorsTableView, _authorsModel, preferredAuthorId);
+    _authorsTableModel.setAuthors(_authorsService.listAuthors());
+    selectRowById(_authorsTableView, _authorsTableModel, preferredAuthorId);
     updateButtons();
 }
 
 void MainWindow::refreshWritingsTable(const QUuid &preferredWritingId)
 {
-    clearModel(_writingsModel);
-
-    const QList<Domain::Writing> writings = _writingsService.listWritings();
-    for (const Domain::Writing &writing : writings) {
-        appendWritingRow(writing);
+    QMap<QUuid, QString> authorNames;
+    for (const Domain::Author &a : _authorsService.listAuthors()) {
+        authorNames.insert(a.m_id, a.m_name);
     }
 
-    selectRowById(_writingsTableView, _writingsModel, preferredWritingId);
+    _writingsTableModel.setWritings(_writingsService.listWritings(), authorNames);
+    selectRowById(_writingsTableView, _writingsTableModel, preferredWritingId);
     updateButtons();
 }
 
@@ -485,8 +466,7 @@ void MainWindow::refreshAuthorCombo(const QUuid &preferredAuthorId)
 
     _writingAuthorCombo->clear();
 
-    const QList<Domain::Author> authors = _authorsService.listAuthors();
-    for (const Domain::Author &author : authors) {
+    for (const Domain::Author &author : _authorsService.listAuthors()) {
         _writingAuthorCombo->addItem(author.m_name, author.m_id);
     }
 
@@ -502,64 +482,6 @@ void MainWindow::refreshAuthorCombo(const QUuid &preferredAuthorId)
     }
 
     updateButtons();
-}
-
-void MainWindow::appendAuthorRow(const Domain::Author &author)
-{
-    auto *nameItem = makeReadOnlyItem(author.m_name);
-    nameItem->setData(author.m_id, kIdRole);
-
-    _authorsModel.appendRow({nameItem, makeReadOnlyItem(uuidToText(author.m_id))});
-}
-
-void MainWindow::appendWritingRow(const Domain::Writing &writing)
-{
-    auto *titleItem = makeReadOnlyItem(writing.m_title);
-    titleItem->setData(writing.m_id, kIdRole);
-    titleItem->setData(writing.m_authorId, kAuthorIdRole);
-
-    _writingsModel.appendRow(
-        {titleItem,
-         makeReadOnlyItem(authorNameById(writing.m_authorId)),
-         makeReadOnlyItem(writing.m_description),
-         makeReadOnlyItem(uuidToText(writing.m_id))});
-}
-
-Domain::Author MainWindow::authorFromForm() const
-{
-    return Domain::Author(QUuid(), _authorNameEdit->text().trimmed());
-}
-
-bool MainWindow::writingFromForm(Domain::Writing &writing)
-{
-    const QUuid authorId = _writingAuthorCombo->currentData().toUuid();
-    if (authorId.isNull()) {
-        showStatus(QStringLiteral("Сначала добавьте хотя бы одного автора."));
-        return false;
-    }
-
-    writing = Domain::Writing(
-        QUuid(),
-        authorId,
-        _writingTitleEdit->text().trimmed(),
-        _writingDescriptionEdit->toPlainText().trimmed());
-    return true;
-}
-
-void MainWindow::fillAuthorForm(const Domain::Author &author)
-{
-    _authorNameEdit->setText(author.m_name);
-}
-
-void MainWindow::fillWritingForm(const Domain::Writing &writing)
-{
-    _writingTitleEdit->setText(writing.m_title);
-    _writingDescriptionEdit->setPlainText(writing.m_description);
-
-    const int index = _writingAuthorCombo->findData(writing.m_authorId);
-    if (index >= 0) {
-        _writingAuthorCombo->setCurrentIndex(index);
-    }
 }
 
 void MainWindow::clearAuthorForm()
@@ -588,8 +510,7 @@ QUuid MainWindow::currentAuthorId() const
     if (!currentIndex.isValid()) {
         return {};
     }
-
-    return _authorsModel.index(currentIndex.row(), 0).data(kIdRole).toUuid();
+    return _authorsTableModel.authorAt(currentIndex.row()).m_id;
 }
 
 QUuid MainWindow::currentWritingId() const
@@ -598,12 +519,11 @@ QUuid MainWindow::currentWritingId() const
     if (!currentIndex.isValid()) {
         return {};
     }
-
-    return _writingsModel.index(currentIndex.row(), 0).data(kIdRole).toUuid();
+    return _writingsTableModel.writingAt(currentIndex.row()).m_id;
 }
 
 void MainWindow::selectRowById(
-    QTableView *tableView, const QStandardItemModel &model, const QUuid &id) const
+    QTableView *tableView, const QAbstractItemModel &model, const QUuid &id) const
 {
     if (id.isNull()) {
         tableView->clearSelection();
@@ -613,7 +533,7 @@ void MainWindow::selectRowById(
 
     for (int row = 0; row < model.rowCount(); ++row) {
         const QModelIndex index = model.index(row, 0);
-        if (index.data(kIdRole).toUuid() == id) {
+        if (index.data(Qt::UserRole).toUuid() == id) {
             tableView->setCurrentIndex(index);
             tableView->selectRow(row);
             tableView->scrollTo(index);
@@ -623,18 +543,6 @@ void MainWindow::selectRowById(
 
     tableView->clearSelection();
     tableView->setCurrentIndex(QModelIndex());
-}
-
-QString MainWindow::authorNameById(const QUuid &authorId) const
-{
-    const QList<Domain::Author> authors = _authorsService.listAuthors();
-    for (const Domain::Author &author : authors) {
-        if (author.m_id == authorId) {
-            return author.m_name;
-        }
-    }
-
-    return QStringLiteral("—");
 }
 
 bool MainWindow::showResult(const Application::OperationResult &result)

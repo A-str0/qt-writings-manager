@@ -34,7 +34,10 @@ qt_add_executable(appcourse_part1
     infrastructure/in_memory_writings_repository.cpp
     infrastructure/in_memory_writings_repository.hpp
 
+    presentation/authors_table_model.hpp
+    presentation/writings_table_model.hpp
     presentation/main_window.hpp presentation/main_window.cpp
+
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

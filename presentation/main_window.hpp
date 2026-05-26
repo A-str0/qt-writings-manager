@@ -2,10 +2,11 @@
 #define PRESENTATION_MAIN_WINDOW_HPP
 
 #include <QMainWindow>
-#include <QStandardItemModel>
 
 #include "application/authors_service.hpp"
 #include "application/writings_service.hpp"
+#include "presentation/authors_table_model.hpp"
+#include "presentation/writings_table_model.hpp"
 
 class QComboBox;
 class QLineEdit;
@@ -53,22 +54,14 @@ private:
     void refreshAuthorsTable(const QUuid &preferredAuthorId = {});
     void refreshWritingsTable(const QUuid &preferredWritingId = {});
     void refreshAuthorCombo(const QUuid &preferredAuthorId = {});
-    void appendAuthorRow(const Domain::Author &author);
-    void appendWritingRow(const Domain::Writing &writing);
 
-    Domain::Author authorFromForm() const;
-    bool writingFromForm(Domain::Writing &writing);
-
-    void fillAuthorForm(const Domain::Author &author);
-    void fillWritingForm(const Domain::Writing &writing);
     void clearAuthorForm();
     void clearWritingForm();
 
     QUuid currentAuthorId() const;
     QUuid currentWritingId() const;
-    void selectRowById(QTableView *tableView, const QStandardItemModel &model, const QUuid &id) const;
+    void selectRowById(QTableView *tableView, const QAbstractItemModel &model, const QUuid &id) const;
 
-    QString authorNameById(const QUuid &authorId) const;
     bool showResult(const Application::OperationResult &result);
     void updateButtons();
     void showStatus(const QString &message);
@@ -76,8 +69,8 @@ private:
     Application::AuthorsService &_authorsService;
     Application::WritingsService &_writingsService;
 
-    QStandardItemModel _authorsModel;
-    QStandardItemModel _writingsModel;
+    AuthorsTableModel _authorsTableModel;
+    WritingsTableModel _writingsTableModel;
 
     QTableView *_authorsTableView = nullptr;
     QTableView *_writingsTableView = nullptr;
